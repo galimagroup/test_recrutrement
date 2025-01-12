@@ -1,5 +1,7 @@
 import { Routes } from "@angular/router";
 import { HomeComponent } from "./shared/features/home/home.component";
+import { OrderComponent } from "./order/order.component";
+import { ContactComponent } from "./contact/contact.component";
 
 export const APP_ROUTES: Routes = [
   {
@@ -11,5 +13,8 @@ export const APP_ROUTES: Routes = [
     loadChildren: () =>
       import("./products/products.routes").then((m) => m.PRODUCTS_ROUTES)
   },
+
   { path: "", redirectTo: "home", pathMatch: "full" },
+  {path: 'order-details', component: OrderComponent },
+  {path: 'contact', component: ContactComponent }
 ];

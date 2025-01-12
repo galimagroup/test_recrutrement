@@ -1,0 +1,24 @@
+
+<div class="contact-container" [style]="{ width: '50vw' }" >
+    <h2>Contactez-nous</h2>
+   <form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
+    <div class="form-field">
+      <label for="email">Email</label>
+      <input pInputText type="text" id="email" formControlName="email" placeholder="Votre email" >
+      <small *ngIf="email && email.invalid && email.touched" class="p-error">Un email valide est requis.</small>
+    </div>
+   
+    <div class="form-field">
+      <label for="message">Message</label>
+      <textarea pInputTextarea id="message" name="message" rows="5" cols="30"  formControlName="message"
+      placeholder="Votre message (max 300 caractères)"></textarea>
+      <small *ngIf="message && message?.errors?.maxlength && message.touched" class="p-error">
+        Le message ne peut dépasser 300 caractères.
+      </small>          
+    </div>
+   
+    <div class="flex justify-content-between">
+      <p-button type="submit" label="Envoyer" severity="success"  [disabled]="contactForm.invalid"/>
+    </div>
+  </form>
+</div>
