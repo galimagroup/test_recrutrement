@@ -1,0 +1,148 @@
+<div class="cart-page">
+    <div class="cart-header">
+      <div class="container">
+        <h1><i class="fas fa-shopping-bag"></i> Mon Panier</h1>
+        <p class="text-muted">{{ getTotalItems() }} articles dans votre panier</p>
+      </div>
+    </div>
+  
+    <div class="container">
+      <div class="row g-4">
+        <!-- Liste des produits -->
+        <div class="col-lg-8">
+          <div class="empty-cart" *ngIf="cartItems.length === 0">
+            <div class="empty-cart-content">
+              <i class="fas fa-shopping-basket"></i>
+              <h3>Votre panier est vide</h3>
+              <p>Découvrez nos produits et ajoutez-les à votre panier</p>
+              <button routerLink="/product-list" class="btn btn-gradient">
+                Découvrir nos produits
+              </button>
+            </div>
+          </div>
+  
+          <!-- Pour chaque produit dans le panier -->
+            <div class="cart-items-container" *ngIf="cartItems.length > 0">
+                <div class="cart-item" *ngFor="let item of cartItems">
+                <div class="cart-item-content">
+                    <!-- Info produit (à gauche) -->
+                    <div class="item-info">
+                    <div class="item-header">
+                        <h3>{{ item.product.name }}</h3>
+                        <span class="category-tag">{{ item.product.category }}</span>
+                    </div>
+            
+                    <div class="item-actions">
+                        <div class="quantity-controls">
+                        <button class="btn-circle" (click)="updateQuantity(item, false)">
+                            <i class="fas fa-minus"></i>
+                        </button>
+                        <span class="quantity">{{ item.quantity }}</span>
+                        <button class="btn-circle" (click)="updateQuantity(item, true)">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                        </div>
+            
+                        <div class="price-info">
+                        <p class="unit-price">{{ item.product.price | currency:'EUR' }} / unité</p>
+                        <p class="total-price">{{ item.product.price * item.quantity | currency:'EUR' }}</p>
+                        </div>
+                    </div>
+            
+                    <div class="item-buttons">
+                        <button class="btn btn-outline" (click)="showDetails(item)">
+                        <i class="fas fa-info-circle"></i> Détails
+                        </button>
+                        <button class="btn btn-danger-soft" (click)="removeItem(item)">
+                        <i class="fas fa-trash-alt"></i> Supprimer
+                        </button>
+                    </div>
+                    </div>
+            
+                    <!-- Image produit (à droite) -->
+                    <div class="item-image">
+                    <img [src]="getImageUrl(item.product.image)" [alt]="item.product.name">
+                    <div class="stock-badge" [ngClass]="item.product.inventory_status">
+                        {{ item.product.inventory_status === 'INSTOCK' ? 'En stock' : 
+                        item.product.inventory_status === 'LOWSTOCK' ? 'Stock faible' : 'Rupture de stock' }}
+                    </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+  
+        <!-- Résumé du panier -->
+        <div class="col-lg-4">
+          <div class="cart-summary">
+            <div class="summary-header">
+              <h2>Résumé</h2>
+            </div>
+            
+            <div class="summary-content">
+              <div class="summary-row">
+                <span>Sous-total</span>
+                <span class="amount">{{ getTotalPrice() | currency:'EUR' }}</span>
+              </div>
+              <div class="summary-row">
+                <span>Livraison</span>
+                <span class="text-success">Gratuite</span>
+              </div>
+              <div class="summary-divider"></div>
+              <div class="summary-total">
+                <span>Total TTC</span>
+                <span class="total-amount">{{ getTotalPrice() | currency:'EUR' }}</span>
+              </div>
+  
+              <div class="summary-actions">
+                <button class="btn btn-gradient btn-lg w-100">
+                  <i class="fas fa-lock me-2"></i>Payer en toute sécurité
+                </button>
+                <button class="btn btn-light btn-lg w-100 mt-3">
+                  <i class="fas fa-arrow-left me-2"></i>Continuer mes achats
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Modal détails produit -->
+    <div class="modal fade custom-modal" id="productDetails" tabindex="-1" [ngClass]="{'show': selectedItem}" *ngIf="selectedItem">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">{{ selectedItem.product.name }}</h4>
+            <button type="button" class="btn-close" (click)="selectedItem = null"></button>
+          </div>
+          <div class="modal-body">
+            <div class="product-details">
+              <div class="product-image">
+                <img [src]="getImageUrl(selectedItem.product.image)" [alt]="selectedItem.product.name">
+              </div>
+              <div class="product-info">
+                <p class="description">{{ selectedItem.product.description }}</p>
+                <div class="info-grid">
+                  <div class="info-item">
+                    <i class="fas fa-tag"></i>
+                    <span>{{ selectedItem.product.price | currency:'EUR' }}</span>
+                  </div>
+                  <div class="info-item">
+                    <i class="fas fa-folder"></i>
+                    <span>{{ selectedItem.product.category }}</span>
+                  </div>
+                  <div class="info-item">
+                    <i class="fas fa-box"></i>
+                    <span [ngClass]="selectedItem.product.inventory_status">
+                      {{ selectedItem.product.inventory_status }}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

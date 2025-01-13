@@ -1,0 +1,186 @@
+
+<nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top" *ngIf="isLoggedIn">
+    <div class="container">
+      <a class="navbar-brand" href="#">
+        <img src="assets/logo_alten.png" class="img-fluid" style="max-width: 20%;" alt="Alten Logo">
+      </a>
+      <div class="d-flex align-items-center">
+        <a (click)="goToContact()" class="btn btn-outline-primary me-2 mr-3">
+          <i class="fas fa-envelope me-2"></i>Contact
+        </a>
+        <button *ngIf="isAdmin()" (click)="goToAddProduct()" class="btn btn-success me-2 mr-3">
+          <i class="fas fa-plus me-2"></i>Ajouter un produit
+        </button>
+        <div class="position-relative me-2 ">
+          <button class="btn btn-success" id="cartButton" (click)="goToCart()">
+            <i class="fas fa-shopping-cart"></i>
+            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+              {{totalProducts}}
+              <span class="visually-hidden">articles dans le panier</span>
+            </span>
+          </button>
+        </div>
+        <div class="dropdown">
+          <button
+            class="btn btn-light dropdown-toggle"
+            type="button"
+            id="dropdownMenuButton"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            <i class="fas fa-user"></i>
+          </button>
+          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <li>
+              <a class="dropdown-item" (click)="goToProfile()">Voir Profil</a>
+            </li>
+            <li>
+              <a class="dropdown-item text-danger" (click)="logout()">Se déconnecter</a>
+            </li> 
+          </ul>
+        </div>
+      </div>
+    </div>
+  </nav>
+    <!-- Main Content -->
+    <div class="container" style="margin-top: 100px;">
+        <div class="row">
+            <!-- Filters Sidebar -->
+            <div class="col-lg-3 mb-4">
+                <div class="filters">
+                    <h5 class="mb-3">Catégories</h5>
+                    <div 
+                      class="category-item mb-2" 
+                      [class.active]="!selectedCategory" 
+                      (click)="filterByCategory(null)">Tous les produits</div>
+                    <div 
+                      class="category-item mb-2" 
+                      [class.active]="selectedCategory === 'Electronique'" 
+                      (click)="filterByCategory('Electronique')">Électronique</div>
+                    <div 
+                      class="category-item mb-2" 
+                      [class.active]="selectedCategory === 'Vetements'" 
+                      (click)="filterByCategory('Vetements')">Vêtements</div>
+                    <div 
+                      class="category-item mb-2" 
+                      [class.active]="selectedCategory === 'Accessoire'" 
+                      (click)="filterByCategory('Accessoire')">Accessoires</div>
+                  
+                    <h5 class="mb-3 mt-4">Prix</h5>
+                    <div class="price-range">
+                      <label for="minPrice">Prix minimum</label>
+                      <input 
+                        type="number" 
+                        id="minPrice" 
+                        class="form-control mb-2" 
+                        [(ngModel)]="minPrice" 
+                        placeholder="Min (€)">
+                      
+                      <label for="maxPrice">Prix maximum</label>
+                      <input 
+                        type="number" 
+                        id="maxPrice" 
+                        class="form-control mb-2" 
+                        [(ngModel)]="maxPrice" 
+                        placeholder="Max (€)">
+                      
+                    </div>
+                    <button class="btn btn-primary btn-filter" (click)="applyFilters()">Appliquer les filtres</button>
+                  </div>
+                  
+            </div>
+
+            <!-- Products Grid -->
+            <div class="col-lg-9">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h4>Tous les produits</h4>
+                    <select class="sort-select">
+                        <option>Trier par popularité</option>
+                        <option>Prix croissant</option>
+                        <option>Prix décroissant</option>
+                        <option>Nouveautés</option>
+                    </select>
+                </div>
+
+                <div class="row g-4">
+                    <div class="row g-4">
+                        <div *ngFor="let product of products" class="col-md-4">
+                            <div class="card product-card">
+                                <div class="product-img-wrapper">
+                                  <img [src]="getImageUrl(product.image)" alt="{{ product.name }}" />
+                                </div>
+                                <div class="card-body">
+                                  <h5 class="product-title">{{ product.name }}</h5>
+                                  <p class="text-muted mb-2">{{ product.brand }}</p>
+                                  <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <!-- Nouveau bouton Modifier -->
+                                    <button *ngIf="isAdmin()" (click)="goToEditProduct(product.id)" class="btn btn-warning btn-sm me-2">
+                                      <i class="fas fa-edit me-1"></i>Modifier
+                                    </button>
+                                    <!-- Prix du produit -->
+                                    <span class="product-price">{{ product.price }}€</span>
+                                  </div>
+                                  <button class="btn btn-primary w-100">
+                                    <i class="fas fa-shopping-cart me-2"></i>Ajouter
+                                  </button>
+                                  <button (click)="goToDetails(product.id)" class="btn btn-outline-secondary w-100 mt-1">
+                                    <i class="fas fa-info-circle me-2"></i>Voir les détails
+                                  </button>
+                                </div>
+                              </div>
+                              
+                        </div>
+                      </div>
+                      
+                </div>
+
+                <!-- Pagination -->
+                <div class="d-flex justify-content-center mt-4">
+                    <button class="btn btn-secondary me-2" (click)="prevPage()" [disabled]="currentPage === 0">Précédent</button>
+                    <button class="btn btn-secondary" (click)="nextPage()" [disabled]="currentPage >= totalPages - 1">Suivant</button>
+                  </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cart Sidebar -->
+    <div class="cart-overlay" id="cartOverlay"></div>
+    <div class="cart-sidebar p-4">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h5 class="mb-0">Panier</h5>
+            <button class="btn" id="closeCart">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        
+        <!-- Cart Items -->
+        <div class="cart-items">
+            <div class="card mb-3">
+                <div class="card-body">
+                    <div class="d-flex">
+                        <img src="/api/placeholder/80/80" alt="Product" class="me-3" style="width: 80px; height: 80px; object-fit: cover;">
+                        <div>
+                            <h6 class="mb-1">iPhone 14 Pro</h6>
+                            <p class="text-muted mb-1">999€</p>
+                            <div class="d-flex align-items-center">
+                                <button class="btn btn-sm btn-outline-secondary">-</button>
+                                <span class="mx-2">1</span>
+                                <button class="btn btn-sm btn-outline-secondary">+</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Cart Total -->
+        <div class="mt-auto">
+            <div class="d-flex justify-content-between mb-3">
+                <span>Total</span>
+                <span class="fw-bold">999€</span>
+            </div>
+            <button class="btn btn-primary w-100">Commander</button>
+        </div>
+    </div>
+
+    

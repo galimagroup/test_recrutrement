@@ -1,0 +1,100 @@
+<div class="container py-5" *ngIf="product">
+    <!-- <nav aria-label="breadcrumb" class="mb-4">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a routerLink="/" class="text-decoration-none">Accueil</a></li>
+        <li class="breadcrumb-item"><a routerLink="/shop" class="text-decoration-none">Catalogue</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Détails Produit</li>
+      </ol>
+    </nav> -->
+  
+    <div class="row">
+      <!-- Image du produit -->
+      <div class="col-md-6 mb-4">
+        <div class="text-center">
+          <img style="width: 80%;" [src]="getImageUrl(product.image)" [alt]="product.name" class="product-image img-fluid mb-3">
+        </div>
+      </div>
+  
+      <!-- Informations produit -->
+      <div class="col-md-6">
+        <div class="info-card">
+          <h1 class="h2 mb-2">{{ product.name }}</h1>
+          <div class="d-flex align-items-center mb-3">
+            <div class="rating me-2">
+              <!-- Afficher une note basée sur les données -->
+              <ng-container *ngFor="let star of [1, 2, 3, 4, 5]; let i = index">
+                <i class="fas" [class.fa-star]="i < product.rating" [class.fa-star-half-alt]="i === product.rating"></i>
+              </ng-container>
+              <span class="ms-2 text-muted">{{ product.rating }}/5</span>
+            </div>
+            <span class="reference-tag ms-2">Réf: {{ product.code }}</span>
+          </div>
+  
+          <h2 class="h1 mb-3">{{ product.price }}€</h2>
+  
+          <div class="mb-4">
+            <span
+              class="stock-badge"
+              [ngClass]="{ instock: product.inventoryStatus === 'INSTOCK', outstock: product.inventoryStatus === 'OUTOFSTOCK' }"
+            >
+              <i
+                class="fas"
+                [class.fa-check-circle]="product.inventoryStatus === 'INSTOCK'"
+                [class.fa-times-circle]="product.inventoryStatus === 'OUTOFSTOCK'"
+                me-2
+              ></i>
+              {{ product.inventoryStatus === 'INSTOCK' ? 'En stock' : 'Rupture de stock' }}
+            </span>
+          </div>
+  
+          <div class="mb-4">
+            <h5>Description</h5>
+            <p class="text-muted">{{ product.description }}</p>
+          </div>
+  
+          <div class="mb-4">
+            <label class="form-label">Quantité</label>
+            <div class="quantity-selector d-flex align-items-center">
+              <button class="btn btn-outline-secondary" (click)="decreaseQuantity()">-</button>
+              <span class="mx-3">{{ quantity }}</span>
+              <button class="btn btn-outline-secondary" (click)="increaseQuantity()">+</button>
+            </div>
+          </div>
+        
+          <button class="btn btn-primary btn-lg w-100 mb-3" (click)="addToCart()">
+            <i class="fas fa-shopping-cart me-2"></i>Ajouter au panier
+          </button>
+        </div>
+  
+        <!-- Détails techniques -->
+        <div class="info-card">
+          <h5>Détails techniques</h5>
+          <table class="table table-borderless mb-0">
+            <tbody>
+              <tr>
+                <td class="text-muted" style="width: 40%;">Code produit</td>
+                <td>{{ product.code }}</td>
+              </tr>
+              <tr>
+                <td class="text-muted">Catégorie</td>
+                <td>{{ product.category }}</td>
+              </tr>
+              <tr>
+                <td class="text-muted">Shell ID</td>
+                <td>{{ product.shellId }}</td>
+              </tr>
+              <tr>
+                <td class="text-muted">État du stock</td>
+                <td><span class="text-success">{{ product.inventoryStatus }}</span></td>
+              </tr>
+              <tr>
+                <td class="text-muted">Dernière mise à jour</td>
+                <td>{{ product.updatedAt | date }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  

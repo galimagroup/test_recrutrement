@@ -1,0 +1,67 @@
+<div class="contact-container">
+  <div class="contact-card">
+    <div class="contact-header">
+      <h1><i class="fas fa-envelope-open-text"></i> Contactez-nous</h1>
+      <p class="text-muted">Nous sommes là pour vous aider. Envoyez-nous un message !</p>
+    </div>
+
+    <!-- Affichage des messages de succès ou d'erreur -->
+    <div *ngIf="successMessage" class="alert alert-success">{{ successMessage }}</div>
+    <div *ngIf="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
+
+    <form [formGroup]="contactForm" (ngSubmit)="onSubmit()" class="contact-form">
+      <div class="form-floating mb-4">
+        <input 
+          type="email" 
+          class="form-control" 
+          id="email" 
+          placeholder="nom@exemple.com"
+          formControlName="email"
+          [ngClass]="{'is-invalid': submitted && contactForm.get('email')?.errors}"
+        >
+        <label for="email">Adresse email</label>
+        <div class="invalid-feedback" *ngIf="submitted && contactForm.get('email')?.errors">
+          <span *ngIf="contactForm.get('email')?.errors?.['required']">L'email est requis</span>
+          <span *ngIf="contactForm.get('email')?.errors?.['email']">Veuillez entrer une adresse email valide</span>
+        </div>
+      </div>
+
+      <div class="form-floating mb-4">
+        <textarea 
+          maxlength="300"
+          class="form-control" 
+          id="message" 
+          placeholder="Votre message"
+          style="height: 150px"
+          formControlName="message"
+          [ngClass]="{'is-invalid': submitted && contactForm.get('message')?.errors}"
+        ></textarea>
+        <label for="message">Votre message</label>
+        <div class="invalid-feedback" *ngIf="submitted && contactForm.get('message')?.errors">
+          <span *ngIf="contactForm.get('message')?.errors?.['required']">Le message est requis</span>
+          <span *ngIf="contactForm.get('message')?.errors?.['minlength']">Le message doit contenir au moins 10 caractères</span>
+        </div>
+      </div>
+
+      <div class="contact-info">
+        <div class="info-item">
+          <i class="fas fa-phone"></i>
+          <span>+33 1 23 45 67 89</span>
+        </div>
+        <div class="info-item">
+          <i class="fas fa-map-marker-alt"></i>
+          <span>123 Rue de l'Innovation, Paris</span>
+        </div>
+      </div>
+
+      <button 
+        type="submit" 
+        class="btn btn-primary btn-lg w-100" 
+        [disabled]="isSubmitting"
+      >
+        <i class="fas fa-paper-plane me-2"></i>
+        Envoyer le message
+      </button>
+    </form>
+  </div>
+</div>

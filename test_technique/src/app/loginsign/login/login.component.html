@@ -1,0 +1,52 @@
+<div class="container py-5">
+    <div class="row justify-content-center">
+      <div class="col-12 col-md-8 col-lg-6">
+        <div class="card border-0">
+          <div class="card-body p-5">
+            <!-- Logo -->
+            <div class="text-center mb-4">
+              <img src="assets/logo_alten.png" style="max-width: 30%;" alt="Alten Logo" class="img-fluid mb-4" />
+              <h4 class="fw-bold">Bienvenue sur Alten Shop</h4>
+              <p class="text-muted">Connectez-vous ou créez un compte</p>
+            </div>
+            <!-- Login Form -->
+            <form (ngSubmit)="login()" [formGroup]="loginForm">
+              <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input
+                  type="email"
+                  id="email"
+                  class="form-control"
+                  formControlName="email"
+                  placeholder="exemple@email.com"
+                  required
+                />
+                <div *ngIf="loginForm.get('email')?.touched && loginForm.get('email')?.invalid" class="text-danger">
+                  Veuillez entrer une adresse email valide.
+                </div>
+              </div>
+              <div class="mb-3">
+                <label for="password" class="form-label">Mot de passe</label>
+                <input
+                  type="password"
+                  id="password"
+                  class="form-control"
+                  formControlName="password"
+                  placeholder="••••••••"
+                  required
+                />
+                <div *ngIf="loginForm.get('password')?.touched && loginForm.get('password')?.invalid" class="text-danger">
+                  Le mot de passe est requis.
+                </div>
+              </div>
+              <div *ngIf="errorMessage" class="text-danger mb-3">{{ errorMessage }}</div>
+              <br />
+              <button type="submit" class="btn btn-primary w-100 mb-3" [disabled]="loginForm.invalid">Se connecter</button>
+              <button type="button" (click)="goToSign()" class="btn btn-secondary w-100 mb-3">S'inscrire</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

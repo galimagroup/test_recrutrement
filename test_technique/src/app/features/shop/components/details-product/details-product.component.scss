@@ -1,0 +1,76 @@
+        :root {
+            --primary-color: #0052CC;
+        }
+        
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .product-image {
+            max-height: 400px;
+            object-fit: contain;
+            border-radius: 12px;
+        }
+
+        .stock-badge {
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        .stock-badge.instock {
+            background-color: #E3FCEF;
+            color: #0B875B;
+        }
+
+        .stock-badge.lowstock {
+            background-color: #FFF5E6;
+            color: #B76E00;
+        }
+
+        .stock-badge.outofstock {
+            background-color: #FFEBE6;
+            color: #BF2600;
+        }
+
+        .quantity-selector {
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            padding: 0.5rem;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .quantity-selector button {
+            background: none;
+            border: none;
+            padding: 0 0.5rem;
+            font-size: 1.2rem;
+            color: var(--primary-color);
+        }
+
+        .quantity-selector span {
+            padding: 0 1rem;
+            font-weight: 500;
+        }
+
+        .rating {
+            color: #FFC107;
+        }
+
+        .info-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,.04);
+        }
+
+        .reference-tag {
+            background-color: #F4F5F7;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            color: #6B778C;
+        }

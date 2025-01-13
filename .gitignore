@@ -1,0 +1,17 @@
+test_technique/node_modules/
+test_technique_back/node_modules/
+
+
+test_technique/dist/
+
+*.log
+
+.env
+.DS_Store
+*.idea/
+*.vscode/
+
+test_technique/package-lock.json
+test_technique_back/package-lock.json
+coverage/
+tmp/
