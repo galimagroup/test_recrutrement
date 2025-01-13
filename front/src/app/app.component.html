@@ -7,10 +7,12 @@
     </div>
     <div class="p-toolbar-group-end">
         <i class="pi pi-shopping-cart" style="font-size: 2rem"></i>
+      <p-badge [value]="totalItems" severity="info"></p-badge>
+      <a routerLink="/cart" class="p-button p-button-text">Voir le Panier</a>
     </div>
 </p-toolbar>
-<p-splitter 
-    [panelSizes]="[20, 80]" 
+<p-splitter
+    [panelSizes]="[20, 80]"
     [style]="{ height: 'calc(100vh - 100px)' }">
     <ng-template pTemplate>
         <div class="w-full">

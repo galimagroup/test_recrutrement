@@ -6,6 +6,9 @@ import { ButtonModule } from "primeng/button";
 import { CardModule } from "primeng/card";
 import { DataViewModule } from 'primeng/dataview';
 import { DialogModule } from 'primeng/dialog';
+import { CommonModule } from '@angular/common';
+import {CartService} from "../../../cart/cart/cart.service";
+import {PaginatorModule} from "primeng/paginator";
 
 const emptyProduct: Product = {
   id: 0,
@@ -29,19 +32,26 @@ const emptyProduct: Product = {
   templateUrl: "./product-list.component.html",
   styleUrls: ["./product-list.component.scss"],
   standalone: true,
-  imports: [DataViewModule, CardModule, ButtonModule, DialogModule, ProductFormComponent],
+  imports: [DataViewModule, CardModule, ButtonModule, DialogModule, ProductFormComponent, CommonModule, PaginatorModule],
 })
 export class ProductListComponent implements OnInit {
   private readonly productsService = inject(ProductsService);
+  public readonly cartService = inject(CartService)
 
   public readonly products = this.productsService.products;
+  public filteredProducts: Product[] = [];
 
   public isDialogVisible = false;
   public isCreation = false;
   public readonly editedProduct = signal<Product>(emptyProduct);
 
+  public first: number = 0;
+  public rowsPerPage: number = 5;
+
   ngOnInit() {
-    this.productsService.get().subscribe();
+    this.productsService.get().subscribe(products => {
+      this.filteredProducts = products;
+    });
   }
 
   public onCreate() {
@@ -76,4 +86,41 @@ export class ProductListComponent implements OnInit {
   private closeDialog() {
     this.isDialogVisible = false;
   }
+
+  public get paginatedProducts(): Product[] {
+    return this.filteredProducts.slice(this.first, this.first + this.rowsPerPage);
+  }
+
+  public onPageChange(event: any) {
+    this.first = event.first;
+  }
+
+  public adjustQuantity(productId: number, adjustment: number) {
+    const product = this.products().find(p => p.id === productId);
+    if (product) {
+      product.quantity = Math.max(product.quantity + adjustment, 1);
+    }
+  }
+
+  public isInCart(product: Product): boolean {
+    return !!this.cartService.cart().find(p => p.id === product.id);
+  }
+
+  onAddToCart(product: Product) {
+    this.cartService.addToCart(product);
+  }
+
+
+
+  public onRemoveFromCart(productId: number) {
+    this.cartService.removeFromCart(productId);
+  }
+
+  public onQuantityChange(product: Product) {
+    // Lorsque la quantité change, on met à jour le produit dans le panier si ce produit est déjà dans le panier
+    if (this.isInCart(product)) {
+      this.cartService.updateQuantity(product.id, product.quantity);
+    }
+  }
+
 }

@@ -1,0 +1,36 @@
+<div class="cart-container">
+<h1 class="text-center">Mon Panier</h1>
+
+<div *ngIf="cartItems.length > 0; else emptyCart">
+  <ul>
+    <li *ngFor="let product of cartItems">
+      <p-card class="block mb-2">
+        <div class="flex justify-content-between">
+          <span class="font-medium text-secondary text-sm">{{ product.category }}</span>
+          <span class="font-medium text-secondary text-sm">{{ product.name }}</span>
+        </div>
+        <div class="text-lg font-medium text-900 mt-2">{{ product.price * product.quantity | currency }}</div>
+        <div>Quantité: {{ product.quantity }}</div>
+        <input
+          type="number"
+          [(ngModel)]="product.quantity"
+          (ngModelChange)="onQuantityChange(product)"
+          min="1"
+          class="p-inputtext"
+          style="width: 60px;"/>
+        <div class="mt-2 flex justify-content-between">
+          <button pButton label="Supprimer" (click)="removeFromCart(product.id)" class="p-button-danger"></button>
+        </div>
+      </p-card>
+    </li>
+  </ul>
+</div>
+  <div class="mt-4 text-right">
+    <h3>Total: {{ totalPrice | currency }}</h3>
+  </div>
+
+
+<ng-template #emptyCart>
+  <p>Votre panier est vide.</p>
+</ng-template>
+</div>
