@@ -1,0 +1,32 @@
+spring:
+  application:
+    name: back
+  datasource:
+    url: jdbc:mysql://localhost:3306/ecommerce
+    username: demba
+    password: Passer123
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    database: mysql
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    hibernate.ddl-auto: update
+    show-sql: false
+      
+server:
+  port: 8081
+  tomcat:
+    relaxed-path-chars: <,>,[,\,],^,`,{,|,},
+    relaxed-query-chars: <,>,[,\,],^,`,{,|,},
+
+application:
+  security:
+    jwt:
+      secret-key: 404E635264556A586E3872357538722F413F4428472B4B6250645367566B5970
+      expiration: 86400000
+      refresh-token.expiration: 604800000
+      expiration-days: 365
+  cors:
+    origins: "*"
+  file:
+    uploads:
+      files-root: uploads

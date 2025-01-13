@@ -1,0 +1,48 @@
+<h1 class="text-center">Les produits du Panier</h1>
+
+<p-button label="List Produits" icon="pi pi-replay" severity="secondary" (onClick)="onPrevPage()" class="block text-center" />
+
+<div class="card">
+    <p-table [value]="getCartProducts()" 
+        [scrollable]="true"
+        scrollHeight="500px"
+        [tableStyle]="{ 'min-width': '60rem' }">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>Name</th>
+                <th>Image</th>
+                <th>Category</th>
+                <th>Price</th>
+                <th>Reviews</th>
+                <th>Actions</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-product>
+            <tr>
+                <td>{{ product.name }}</td>
+                <td>
+                    <div class="md:w-20 relative">
+                        <img class="block xl:block mx-auto rounded-border w-full"
+                            [src]="getImage(product)"
+                            [alt]="product.name" width="40px" />
+                        <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product)" class="absolute"
+                            styleClass="dark:!bg-surface-900" [style.left.px]="4" [style.top.px]="4" />
+                    </div>
+                </td>
+                <td>{{ product.category }}</td>
+                <td>{{ product.price + ' €' }}</td>
+                <td>
+                    @for (i of getRatingArr(product); track i) {
+                        <i class="pi pi-star-fill text-yellow-500"></i>
+                    }
+                </td>
+                <td>
+                    <p-button label="Retirer" 
+                    icon="pi pi-cart-minus" 
+                    severity="warning" 
+                    (onClick)="onRemoveFromCart(product)" /> 
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>

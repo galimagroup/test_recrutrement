@@ -1,0 +1,58 @@
+<h1 class="text-center">Liste des produits</h1>
+
+<p-button label="Créer produit" icon="pi pi-plus" (onClick)="onCreate()" class="block text-center" />
+
+<div class="flex ml-5 mt-5 justify-content-between">
+    <input pInputText [(ngModel)]="filterValue" type="text" pSize="large" placeholder="Search"
+        (keyup)="onChangeFilter($event)" />
+    <em class=""><small class="">Cliquer sur le panier pour voir les produits qu'il contient</small></em>
+</div>
+
+
+<p-dataView #dv [value]="getProducts()" [paginator]="true" [rows]="5">
+    <ng-template pTemplate="list" let-products>
+        @for (product of products; track product) {
+        <p-card class="block mb-2">
+            <div class="flex flex-col sm:flex-row sm:items-center p-6 gap-4">
+                <div class="md:w-40 relative">
+                    <img class="block xl:block mx-auto rounded-border w-full" [src]="getImage(product)"
+                        [alt]="product.name" width="40px" />
+                    <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product)" class="absolute"
+                        styleClass="dark:!bg-surface-900" [style.left.px]="4" [style.top.px]="4" />
+                </div>
+                <div class="md:w-60 relative">
+                    <span class="font-medium text-secondary text-sm">{{ product.category }}</span>
+                    <div class="text-lg font-medium text-900 mt-2">{{ product.name }}</div>
+                    <div class="bg-surface-100 dark:bg-surface-700 p-1 my-1" style="border-radius: 30px">
+                        <div class="bg-surface-0 dark:bg-surface-900 flex items-center gap-2 justify-center py-1 px-2"
+                            style="border-radius: 30px; box-shadow: 0px 1px 2px 0px">
+                            @for (i of getRatingArr(product); track i) {
+                            <i class="pi pi-star-fill text-yellow-500"></i>
+                            }
+                        </div>
+                    </div>
+                    <div class="font-medium flex justify-content-center">
+                        <span class="text-xl font-semibold text-surface-900 dark:text-surface-0">{{ product.price + ' €'
+                            }}</span>
+                    </div>
+                </div>
+            </div>
+
+            <ng-template pTemplate="footer">
+                <div class="flex gap-3 mt-1">
+                    <p-button label="Modifier" icon="pi pi-pencil" severity="secondary" (onClick)="onUpdate(product)" />
+                    <p-button label="Supprimer" icon="pi pi-trash" severity="danger" (onClick)="onDelete(product)" />
+                    <p-button label="Ajouter" icon="pi pi-cart-plus" severity="success"
+                        (onClick)="onAddToCart(product)" />
+                    <p-button label="Retirer" icon="pi pi-cart-minus" severity="warning"
+                        (onClick)="onRemoveFromCart(product)" />
+                </div>
+            </ng-template>
+        </p-card>
+        }
+    </ng-template>
+</p-dataView>
+
+<p-dialog [(visible)]="isDialogVisible" [style]="{ width: '50vw' }" header="Ajout/Edition produit">
+    <app-product-form [product]="editedProduct()" (save)="onSave($event)" (cancel)="onCancel()" />
+</p-dialog>
