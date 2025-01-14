@@ -1,0 +1,475 @@
+{
+	"info": {
+		"_postman_id": "2c6c8fb4-91ab-46e4-8000-8a31b62bfe5d",
+		"name": "Projet_Alten",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "40932325"
+	},
+	"item": [
+		{
+			"name": "createaccountcheikh",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"cheikh\",\r\n    \"firstname\": \"cheikh tidiane\",\r\n    \"email\": \"tidiane@test.com\",\r\n    \"password\": \"cheikh123\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/account",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"account"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login_cheikh",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"tidiane@test.com\",\r\n    \"password\": \"cheikh123\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/token",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login_cheikh_getProduct",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2Nzg2N2ZlYzkwY2U1MzM3MDFiOGNiYzQiLCJlbWFpbCI6InRpZGlhbmVAdGVzdC5jb20iLCJpYXQiOjE3MzY4Njc5Mjd9.43-z9aipBP39veHqrD15QfygbFmkGiSbvRF5H-jrW78",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/products",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"products"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login_cheikh_getProduct/:ID",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2Nzg2N2ZlYzkwY2U1MzM3MDFiOGNiYzQiLCJlbWFpbCI6InRpZGlhbmVAdGVzdC5jb20iLCJpYXQiOjE3MzY4Njc5Mjd9.43-z9aipBP39veHqrD15QfygbFmkGiSbvRF5H-jrW78",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/products/67868203944c277e8f4a46a8",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"products",
+						"67868203944c277e8f4a46a8"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login_cheikh_addProduct/panier",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2Nzg2N2ZlYzkwY2U1MzM3MDFiOGNiYzQiLCJlbWFpbCI6InRpZGlhbmVAdGVzdC5jb20iLCJpYXQiOjE3MzY4Njc5Mjd9.43-z9aipBP39veHqrD15QfygbFmkGiSbvRF5H-jrW78",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"userId\": \"67867fec90ce533701b8cbc4\",\r\n    \"products\": [\"PROD001\"],\r\n    \"_id\": \"67868327944c277e8f4a46ad\",\r\n    \"__v\": 0\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/cart/add",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"cart",
+						"add"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login_cheikh_getProduct/panier Copy",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2Nzg2N2ZlYzkwY2U1MzM3MDFiOGNiYzQiLCJlbWFpbCI6InRpZGlhbmVAdGVzdC5jb20iLCJpYXQiOjE3MzY4Njc5Mjd9.43-z9aipBP39veHqrD15QfygbFmkGiSbvRF5H-jrW78",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"userId\": \"67867fec90ce533701b8cbc4\",\r\n    \"products\": [\"PROD001\"],\r\n    \"_id\": \"67868327944c277e8f4a46ad\",\r\n    \"__v\": 0\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/cart/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"cart",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login_cheikh_getWishlist",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2Nzg2N2ZlYzkwY2U1MzM3MDFiOGNiYzQiLCJlbWFpbCI6InRpZGlhbmVAdGVzdC5jb20iLCJpYXQiOjE3MzY4Njc5Mjd9.43-z9aipBP39veHqrD15QfygbFmkGiSbvRF5H-jrW78",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"userId\": \"67867fec90ce533701b8cbc4\",\r\n    \"products\": [\"PROD001\"],\r\n    \"_id\": \"67868327944c277e8f4a46ad\",\r\n    \"__v\": 0\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/wishList",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"wishList"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login_cheikh_addWishlist",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2Nzg2N2ZlYzkwY2U1MzM3MDFiOGNiYzQiLCJlbWFpbCI6InRpZGlhbmVAdGVzdC5jb20iLCJpYXQiOjE3MzY4Njc5Mjd9.43-z9aipBP39veHqrD15QfygbFmkGiSbvRF5H-jrW78",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"userId\": \"67867fec90ce533701b8cbc4\",\r\n    \"products\": [\"PROD001\"]\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/wishList/add",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"wishList",
+						"add"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login_cheikh_createproduct",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2Nzg2N2ZlYzkwY2U1MzM3MDFiOGNiYzQiLCJlbWFpbCI6InRpZGlhbmVAdGVzdC5jb20iLCJpYXQiOjE3MzY4Njc5Mjd9.43-z9aipBP39veHqrD15QfygbFmkGiSbvRF5H-jrW78",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"code\": \"PROD001999\",\r\n    \"name\": \"Mon Iphone 12\",\r\n    \"description\": \"Dernier iPhone\",\r\n    \"image\": \"iphone.jpg\",\r\n    \"category\": \"Smartphones\",\r\n    \"price\": 999.99,\r\n    \"quantity\": 50,\r\n    \"internalReference\": \"REF001\",\r\n    \"shellId\": 1,\r\n    \"inventoryStatus\": \"INSTOCK\",\r\n    \"rating\": 4.5\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/products",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"products"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login_admin_createproduct",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NzgzYjA3NWYwODk1MzQwOGRkMWYyYzkiLCJlbWFpbCI6ImFkbWluQGFkbWluLmNvbSIsImlhdCI6MTczNjg2ODI3M30.QLbrDR5IpfRRgb9RLXU1yeRTa8_gwLOH9zgm-c8vpa4",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"code\": \"PROD001999\",\r\n    \"name\": \"Mon Iphone 12\",\r\n    \"description\": \"Dernier iPhone\",\r\n    \"image\": \"iphone.jpg\",\r\n    \"category\": \"Smartphones\",\r\n    \"price\": 999.99,\r\n    \"quantity\": 50,\r\n    \"internalReference\": \"REF001\",\r\n    \"shellId\": 1,\r\n    \"inventoryStatus\": \"INSTOCK\",\r\n    \"rating\": 4.5\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/products",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"products"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login_admin_deleteproduct",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NzgzYjA3NWYwODk1MzQwOGRkMWYyYzkiLCJlbWFpbCI6ImFkbWluQGFkbWluLmNvbSIsImlhdCI6MTczNjg2ODI3M30.QLbrDR5IpfRRgb9RLXU1yeRTa8_gwLOH9zgm-c8vpa4",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"code\": \"PROD001999\",\r\n    \"name\": \"Mon Iphone 12\",\r\n    \"description\": \"Dernier iPhone\",\r\n    \"image\": \"iphone.jpg\",\r\n    \"category\": \"Smartphones\",\r\n    \"price\": 999.99,\r\n    \"quantity\": 50,\r\n    \"internalReference\": \"REF001\",\r\n    \"shellId\": 1,\r\n    \"inventoryStatus\": \"INSTOCK\",\r\n    \"rating\": 4.5\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/products/67868203944c277e8f4a46a8",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"products",
+						"67868203944c277e8f4a46a8"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login_compte_admin",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2Nzg2N2ZlYzkwY2U1MzM3MDFiOGNiYzQiLCJlbWFpbCI6InRpZGlhbmVAdGVzdC5jb20iLCJpYXQiOjE3MzY4Njc5Mjd9.43-z9aipBP39veHqrD15QfygbFmkGiSbvRF5H-jrW78",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"code\": \"PROD001999\",\r\n    \"name\": \"Mon Iphone 12\",\r\n    \"description\": \"Dernier iPhone\",\r\n    \"image\": \"iphone.jpg\",\r\n    \"category\": \"Smartphones\",\r\n    \"price\": 999.99,\r\n    \"quantity\": 50,\r\n    \"internalReference\": \"REF001\",\r\n    \"shellId\": 1,\r\n    \"inventoryStatus\": \"INSTOCK\",\r\n    \"rating\": 4.5\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/products",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"products"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
