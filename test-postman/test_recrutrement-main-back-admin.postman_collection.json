@@ -1,0 +1,417 @@
+{
+	"info": {
+		"_postman_id": "bd255b5d-2fe7-465d-9253-60fe44fa91f2",
+		"name": "test_recrutrement-main-back-admin",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "40958019"
+	},
+	"item": [
+		{
+			"name": "http://localhost:8080/api/account",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"username\": \"admin\",\r\n  \"firstname\": \"admin\",\r\n  \"email\": \"admin@admin.com\",\r\n  \"password\": \"admin123\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/account",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"account"
+					]
+				},
+				"description": "Création du compte admin"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/api/token",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"email\": \"admin@admin.com\",\r\n  \"password\": \"admin123\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/token",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"token"
+					]
+				},
+				"description": "Connection de l'admin et génération de son tocken"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/api/products",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBhZG1pbi5jb20iLCJpYXQiOjE3MzY4NzM5NzgsImV4cCI6MTczNjkwOTk3OH0.hoWCoCaJs3C7ghPLvlqyZIurwocEfy0CzO28LNe0l5M",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBhZG1pbi5jb20iLCJpYXQiOjE3MzY3Njk3OTUsImV4cCI6MTczNjc2OTgzMX0._YSRXqWLgdBVJw7N_XC5JEhYVDQopzLZ68-IoCtBQqM",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"code\": \"P111111\",\r\n  \"name\": \"Product 11\",\r\n  \"description\": \"This is a test product  11\",\r\n  \"image\": \"product11.jpg\",\r\n  \"category\": \"Electronics\",\r\n  \"price\": 100.00,\r\n  \"quantity\": 20,\r\n  \"internalReference\": \"INT-0011\",\r\n  \"shellId\": 1,\r\n  \"inventoryStatus\": \"INSTOCK\",\r\n  \"rating\": 4,\r\n  \"createdAt\": 1672531200000,\r\n  \"updatedAt\": 1672531200000\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/products",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"products"
+					]
+				},
+				"description": "Admin ajoute un produit"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/api/products",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBhZG1pbi5jb20iLCJpYXQiOjE3MzY4NzM5NzgsImV4cCI6MTczNjkwOTk3OH0.hoWCoCaJs3C7ghPLvlqyZIurwocEfy0CzO28LNe0l5M",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/products",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"products"
+					]
+				},
+				"description": "Admin liste les produits"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/api/products/678698f6626a9021476f9967",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBhZG1pbi5jb20iLCJpYXQiOjE3MzY4NzM5NzgsImV4cCI6MTczNjkwOTk3OH0.hoWCoCaJs3C7ghPLvlqyZIurwocEfy0CzO28LNe0l5M",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \r\n    \"code\": \"P22222\",\r\n    \"name\": \"Product 22\",\r\n    \"description\": \"This is a test product  22\",\r\n    \"image\": \"product11.jpg\",\r\n    \"category\": \"Electronics\",\r\n    \"price\": 100.0,\r\n    \"quantity\": 20,\r\n    \"internalReference\": \"INT-0011\",\r\n    \"shellId\": 1,\r\n    \"inventoryStatus\": \"INSTOCK\",\r\n    \"rating\": 4,\r\n    \"createdAt\": 1736874229093,\r\n    \"updatedAt\": 1736874229093\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/products/678698f6626a9021476f9967",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"products",
+						"678698f6626a9021476f9967"
+					]
+				},
+				"description": "Admin modifie le produit d'id=\"678698f6626a9021476f9967\""
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/api/products/678698f6626a9021476f9967",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBhZG1pbi5jb20iLCJpYXQiOjE3MzY4NzM5NzgsImV4cCI6MTczNjkwOTk3OH0.hoWCoCaJs3C7ghPLvlqyZIurwocEfy0CzO28LNe0l5M",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/products/678698f6626a9021476f9967",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"products",
+						"678698f6626a9021476f9967"
+					]
+				},
+				"description": "Admin affiche le produit d'Id=\"678698f6626a9021476f9967\""
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/api/products/678698f6626a9021476f9967",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBhZG1pbi5jb20iLCJpYXQiOjE3MzY4NzM5NzgsImV4cCI6MTczNjkwOTk3OH0.hoWCoCaJs3C7ghPLvlqyZIurwocEfy0CzO28LNe0l5M",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/products/678698f6626a9021476f9967",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"products",
+						"678698f6626a9021476f9967"
+					]
+				},
+				"description": "Admin supprime le produit d'Id=\"678698f6626a9021476f9967\""
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/api/cart/add",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBhZG1pbi5jb20iLCJpYXQiOjE3MzY4NzM5NzgsImV4cCI6MTczNjkwOTk3OH0.hoWCoCaJs3C7ghPLvlqyZIurwocEfy0CzO28LNe0l5M",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"productId\": \"6784041cbb16be0fde7b13b7\",\r\n  \"productName\": \"Product 31\",\r\n  \"productPrice\": 99.99,\r\n  \"quantity\": 3\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/cart/add",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"cart",
+						"add"
+					]
+				},
+				"description": "Admin ajoute des produits dans son panier"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/api/cart",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBhZG1pbi5jb20iLCJpYXQiOjE3MzY4NzM5NzgsImV4cCI6MTczNjkwOTk3OH0.hoWCoCaJs3C7ghPLvlqyZIurwocEfy0CzO28LNe0l5M",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/cart",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"cart"
+					]
+				},
+				"description": "Admin liste les produits de son panier"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/api/cart/remove/6784041cbb16be0fde7b13b7",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBhZG1pbi5jb20iLCJpYXQiOjE3MzY4NzM5NzgsImV4cCI6MTczNjkwOTk3OH0.hoWCoCaJs3C7ghPLvlqyZIurwocEfy0CzO28LNe0l5M",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/cart/remove/6784041cbb16be0fde7b13b7",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"cart",
+						"remove",
+						"6784041cbb16be0fde7b13b7"
+					]
+				},
+				"description": "Admin delete product in cart"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/api/cart/clear",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBhZG1pbi5jb20iLCJpYXQiOjE3MzY4NzM5NzgsImV4cCI6MTczNjkwOTk3OH0.hoWCoCaJs3C7ghPLvlqyZIurwocEfy0CzO28LNe0l5M",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/cart/clear",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"cart",
+						"clear"
+					]
+				},
+				"description": "Admin vide le panier"
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer"
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
