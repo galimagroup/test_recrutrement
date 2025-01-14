@@ -1,0 +1,68 @@
+<div class="m-4">
+  <h1 class="text-center">Liste des produits</h1>
+
+  <p-button label="Créer produit" (onClick)="onCreate()" class="block text-center mb-4" />
+
+  <!-- Filtres -->
+  <div class="flex gap-4 mb-4">
+    <span class="p-input-icon-left flex-1">
+      <i class="pi pi-search"></i>
+      <input type="text" pInputText [(ngModel)]="filters.name" (ngModelChange)="applyFilters()"
+        placeholder="Rechercher par nom" class="w-full">
+    </span>
+
+    <p-dropdown [options]="categories" [(ngModel)]="filters.category" (ngModelChange)="applyFilters()"
+      placeholder="Catégorie" class="w-[200px]">
+    </p-dropdown>
+
+    <p-dropdown [options]="statuses" [(ngModel)]="filters.status" (ngModelChange)="applyFilters()"
+      placeholder="État du stock" class="w-[200px]">
+    </p-dropdown>
+  </div>
+
+  <!-- Liste des produits -->
+  <p-dataView [value]="filteredProducts()" [rows]="rows" [first]="first">
+    <ng-template pTemplate="list" let-products>
+      @for (product of products; track product) {
+      <p-card class="block mb-2">
+        <div class="flex">
+          <img [src]="product.image" [alt]="product.name" class="w-[200px] mr-4">
+          <div class="flex-grow">
+            <span class="font-medium text-secondary text-sm">{{ product.category }}</span>
+            <div class="text-lg font-medium text-900 mt-2">{{ product.name }}</div>
+            <p>{{ product.description }}</p>
+            <div class="flex justify-content-between align-items-center">
+              <span class="text-xl font-bold">{{ product.price | currency:'EUR' }}</span>
+              <div class="flex align-items-center gap-2">
+                <span>Stock: {{ product.quantity }}</span>
+                <span [class]="'product-badge status-' + product.inventoryStatus.toLowerCase()">
+                  {{ product.inventoryStatus }}
+                </span>
+              </div>
+            </div>
+            <div class="flex gap-3 mt-3">
+              <div class="flex align-items-center">
+                <p-button icon="pi pi-shopping-cart" (onClick)="addToCart(product)"
+                  [disabled]="product.inventoryStatus === 'OUTOFSTOCK'" />
+              </div>
+              <p-button label="Modifier" severity="secondary" (onClick)="onUpdate(product)" />
+              <p-button label="Supprimer" severity="danger" (onClick)="onDelete(product)" />
+            </div>
+          </div>
+        </div>
+      </p-card>
+      }
+    </ng-template>
+  </p-dataView>
+
+  <!-- Pagination -->
+  <p-paginator [rows]="rows" [totalRecords]="filteredProducts().length" [first]="first"
+    (onPageChange)="onPageChange($event)">
+  </p-paginator>
+</div>
+
+<!-- Dialogue de création/édition -->
+<p-dialog [(visible)]="isDialogVisible" [style]="{ width: '50vw' }"
+  [header]="isCreation ? 'Création produit' : 'Modification produit'">
+  <app-product-form [product]="editedProduct()" (save)="onSave($event)" (cancel)="onCancel()" />
+</p-dialog>
