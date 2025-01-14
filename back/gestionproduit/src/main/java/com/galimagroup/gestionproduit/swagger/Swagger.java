@@ -17,7 +17,7 @@ public class Swagger {
                 .info(new Info()
                         .title("API de gestion des produits")
                         .version("1.0")
-                        .description("API RESTful pour gérer les produits, les utilisateurs, le panier d'achat, et la liste d'envies."))
+                        .description("API pour gérer les produits, les utilisateurs, le panier d'achat, et la liste d'envies."))
                 .addSecurityItem(new SecurityRequirement().addList(securitySchemeName))
                 .components(new Components()
                         .addSecuritySchemes(securitySchemeName,
