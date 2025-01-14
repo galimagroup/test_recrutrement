@@ -23,7 +23,7 @@ npm install
 Créer un fichier `.env` à la racine du projet avec les variables suivantes :
 ```env
 MONGODB_URI=votre_uri_mongodb
-JWT_SECRET=votre_secret_jwt
+JWT_SECRET=Alten
 PORT=3000 (ou autre port de votre choix)
 ```
 
@@ -98,18 +98,6 @@ Pour contribuer au projet :
 3. Commiter vos changements
 4. Pousser vers la branche
 5. Ouvrir une Pull Request
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

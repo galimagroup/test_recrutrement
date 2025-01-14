@@ -6,7 +6,7 @@ Ce backend fournit une API RESTful pour une application e-commerce, permettant l
 
 - Node.js
 - Express.js
-- MongoDB avec Mongoose
+- MongoDB avec Mongoose (creation d'un cluster sur atlas)
 - JWT pour l'authentification
 - bcryptjs pour le hachage des mots de passe
 - CORS pour la gestion des requêtes cross-origin
@@ -22,7 +22,7 @@ npm install
 Créer un fichier `.env` à la racine du projet avec les variables suivantes :
 ```env
 MONGODB_URI=votre_uri_mongodb
-JWT_SECRET=votre_secret_jwt
+JWT_SECRET=Alten
 PORT=3000 (ou autre port de votre choix)
 ```
 
