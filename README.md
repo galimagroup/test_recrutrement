@@ -110,8 +110,7 @@ Application frontend Angular pour l'e-commerce Alten, offrant une interface util
 - Angular 18
 - PrimeNG 17.18.0 (Bibliothèque de composants UI)
 - PrimeFlex 3.3.1 (Système de grille CSS flexible)
-- Chart.js 3.3.2 (Pour les visualisations de données)
-- Service Workers (Pour le support PWA)
+
 
 ## Fonctionnalités Principales
 
