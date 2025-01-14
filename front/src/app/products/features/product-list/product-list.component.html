@@ -7,21 +7,21 @@
   <div class="flex gap-4 mb-4">
     <span class="p-input-icon-left flex-1">
       <i class="pi pi-search"></i>
-      <input type="text" pInputText [(ngModel)]="filters.name" (ngModelChange)="applyFilters()"
+      <input type="text" pInputText [(ngModel)]="productlistService.filters.name" (ngModelChange)="productlistService.applyFilters()"
         placeholder="Rechercher par nom" class="w-full">
     </span>
 
-    <p-dropdown [options]="categories" [(ngModel)]="filters.category" (ngModelChange)="applyFilters()"
+    <p-dropdown [options]="productlistService.categories" [(ngModel)]="productlistService.filters.category" (ngModelChange)="productlistService.applyFilters()"
       placeholder="Catégorie" class="w-[200px]">
     </p-dropdown>
 
-    <p-dropdown [options]="statuses" [(ngModel)]="filters.status" (ngModelChange)="applyFilters()"
+    <p-dropdown [options]="productlistService.statuses" [(ngModel)]="productlistService.filters.status" (ngModelChange)="productlistService.applyFilters()"
       placeholder="État du stock" class="w-[200px]">
     </p-dropdown>
   </div>
 
   <!-- Liste des produits -->
-  <p-dataView [value]="filteredProducts()" [rows]="rows" [first]="first">
+  <p-dataView [value]="productlistService.filteredProducts()" [rows]="productlistService.rows" [first]="productlistService.first">
     <ng-template pTemplate="list" let-products>
       @for (product of products; track product) {
       <p-card class="block mb-2">
@@ -56,8 +56,8 @@
   </p-dataView>
 
   <!-- Pagination -->
-  <p-paginator [rows]="rows" [totalRecords]="filteredProducts().length" [first]="first"
-    (onPageChange)="onPageChange($event)">
+  <p-paginator [rows]="productlistService.rows" [totalRecords]="productlistService.filteredProducts().length" [first]="productlistService.first"
+    (onPageChange)="productlistService.onPageChange($event)">
   </p-paginator>
 </div>
 

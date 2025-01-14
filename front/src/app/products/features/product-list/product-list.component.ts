@@ -12,14 +12,9 @@ import { CartService } from "../../data-access/cart.service";
 import { FormsModule } from "@angular/forms";
 import { PaginatorModule } from 'primeng/paginator';
 import { CommonModule } from "@angular/common";
+import { ProductListService } from "app/products/data-access/product-list.service";
 
 
-
-interface ProductFilters {
-  name: string;
-  category: string;
-  status: string;
-}
 const emptyProduct: Product = {
   id: 0,
   code: "",
@@ -52,15 +47,15 @@ const emptyProduct: Product = {
     DropdownModule,
     InputTextModule,
     FormsModule,
-    PaginatorModule,CommonModule
+    PaginatorModule, CommonModule
   ],
 })
 export class ProductListComponent implements OnInit {
+ public readonly productlistService=inject(ProductListService)
   public readonly editedProduct = signal<Product>(emptyProduct);
   private readonly productsService = inject(ProductsService);
-   public readonly cartService = inject(CartService);
-  public readonly products = this.productsService.products;
-  public readonly filteredProducts = signal<Product[]>([]);
+  public readonly cartService = inject(CartService);
+  
   public isDialogVisible = false;
   public isCreation = false;
   public onCreate() {
@@ -95,35 +90,10 @@ export class ProductListComponent implements OnInit {
   private closeDialog() {
     this.isDialogVisible = false;
   }
-
-
-
-  // Pagination
-  public first = 0;
-  public rows = 5;
-
-  // Filtres
-  public filters: ProductFilters = {
-    name: '',
-    category: '',
-    status: ''
-  };
-
-  public readonly categories = [
-    { label: 'Tous', value: '' },
-    { label: 'Accessories', value: 'Accessories' },
-    { label: 'Fitness', value: 'Fitness' },
-    { label: 'Clothing', value: 'Clothing' },
-    { label: 'Electronics', value: 'Electronics' }
-  ];
-
-  public readonly statuses = [
-    { label: 'Tous', value: '' },
-    { label: 'En stock', value: 'INSTOCK' },
-    { label: 'Stock faible', value: 'LOWSTOCK' },
-    { label: 'Rupture', value: 'OUTOFSTOCK' }
-  ];
-
+  applyFilters(){
+    return this.productlistService.applyFilters();
+  }
+ 
   ngOnInit() {
     this.productsService.get().subscribe(() => {
       this.applyFilters();
@@ -132,37 +102,9 @@ export class ProductListComponent implements OnInit {
 
 
 
-  public applyFilters() {
-    let filtered = this.products();
-
-    if (this.filters.name) {
-      filtered = filtered.filter(product =>
-        product.name.toLowerCase().includes(this.filters.name.toLowerCase())
-      );
-    }
-
-    if (this.filters.category) {
-      filtered = filtered.filter(product =>
-        product.category === this.filters.category
-      );
-    }
-
-    if (this.filters.status) {
-      filtered = filtered.filter(product =>
-        product.inventoryStatus === this.filters.status
-      );
-    }
-
-    this.filteredProducts.set(filtered);
-  }
-  public onPageChange(event: any) {
-    this.first = event.first;
-    this.rows = event.rows;
-    this.applyFilters();
-  }
-
+  
   addToCart(product: Product) {
     this.cartService.addToCart(product);
-}
+  }
 
 }

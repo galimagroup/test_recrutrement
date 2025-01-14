@@ -2,6 +2,22 @@ const Product = require('../models/Product');
 
 exports.createProduct = async (req, res) => {
   try {
+    // Vérification des champs requis
+    const { code, name, price, quantity } = req.body;
+    if (!code || !name || !price || !quantity) {
+      return res.status(400).json({ 
+        error: 'Les champs code, name, price et quantity sont obligatoires' 
+      });
+    }
+
+    // Vérification de l'unicité du code
+    const existingProduct = await Product.findOne({ code: code });
+    if (existingProduct) {
+      return res.status(400).json({ 
+        error: 'Un produit avec ce code existe déjà' 
+      });
+    }
+
     const product = new Product(req.body);
     await product.save();
     res.status(201).json(product);
