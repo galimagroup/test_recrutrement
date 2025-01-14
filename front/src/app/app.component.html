@@ -5,8 +5,10 @@
     <div class="p-toolbar-group-center">
         {{ title }}
     </div>
-    <div class="p-toolbar-group-end">
-        <i class="pi pi-shopping-cart" style="font-size: 2rem"></i>
+    <div class="p-toolbar-group-end" (click)="onShowCartProducts()">
+        <p-badge [value]="cartProducts.length" />
+        <i class="pi pi-shopping-cart" style="font-size: 2rem">
+        </i>
     </div>
 </p-toolbar>
 <p-splitter 

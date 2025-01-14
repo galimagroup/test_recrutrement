@@ -1,7 +1,7 @@
 import { Injectable, inject, signal } from "@angular/core";
 import { Product } from "./product.model";
 import { HttpClient } from "@angular/common/http";
-import { catchError, Observable, of, tap } from "rxjs";
+import { BehaviorSubject, catchError, Observable, of, Subject, tap } from "rxjs";
 
 @Injectable({
     providedIn: "root"
@@ -13,6 +13,16 @@ import { catchError, Observable, of, tap } from "rxjs";
     private readonly _products = signal<Product[]>([]);
 
     public readonly products = this._products.asReadonly();
+
+    private cartProducts$ = new BehaviorSubject<Product[]>([]);
+
+    public setCartProducts(products: Product[]) {
+      this.cartProducts$.next(products);
+    }
+  
+    public getCartProducts(): Observable<Product[]> {
+      return this.cartProducts$.asObservable();
+    }
 
     public get(): Observable<Product[]> {
         return this.http.get<Product[]>(this.path).pipe(

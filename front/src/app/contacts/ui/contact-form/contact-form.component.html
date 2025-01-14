@@ -1,0 +1,19 @@
+<form [formGroup]="form" (ngSubmit)="onSave()">
+    <div class="flex-auto justify-content-center ml-5">
+        <div class="form-field my-2 w-6 md:w-2">
+            <label for="email" class="w-full">Email</label>
+            <input pInputText type="email" id="email" class="form-control" formControlName="email"
+                placeholder="mail@example.com" required />
+        </div>
+        <div class="form-field my-2 w-6 md:w-2">
+            <label for="msg" class="w-full">Message</label>
+            <textarea pInputTextarea id="msg" class="form-control" formControlName="msg" pSize="large" rows="5"
+                cols="40">
+          </textarea>
+        </div>
+        <div class="form-field my-2 w-6 md:w-2 justify-content-center">
+            <p-toast />
+            <p-button type="submit" [disabled]="!form.valid" pRipple label="Envoyer" severity="primary" />
+        </div>
+    </div>
+</form>
