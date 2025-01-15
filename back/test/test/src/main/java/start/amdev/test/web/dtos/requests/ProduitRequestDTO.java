@@ -13,6 +13,7 @@ import start.amdev.test.domain.enums.InventoryStatus;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ProduitRequestDTO{
+    private Long id;
     private String name;
     private String code;
     private String description;
