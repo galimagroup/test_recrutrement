@@ -1,6 +1,19 @@
+# Comment tester
+  ## Backend
+    - Java version 17 spring Boot version 3.4.1
+    - base de donnée h2 embarqué
+    - http acces : http://localhost:8080
+    - swagger access : http://localhost:8080/swagger-ui/index.htm
+    - Postname : une collection est disponible dans le dossier << back >> avec le nom (Alten test.postman_collection)
+  ## Front
+    - le template fournir a été utilisé, aucun package supplementaire n'a été ajouté
+    - pour ajouter un produit au panier cliquer sur le boutton commander du produit concerné
+    - pour voir les produits dans le panier cliquer sur l'icon panier en haut de la page
+  
+
 # Consignes
 
-- Vous êtes développeur front-end : vous devez réaliser les consignes décrites dans le chapitre [Front-end](#Front-end)
+- Vous êtes  développeur front-end : vous devez réaliser les consignes décrites dans le chapitre [Front-end](#Front-end)
 
 - Vous êtes développeur back-end : vous devez réaliser les consignes décrites dans le chapitre [Back-end](#Back-end) (*)
 
