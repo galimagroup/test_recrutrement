@@ -40,8 +40,8 @@ src/
 ## Points d'API
 
 ### Authentification
-- `POST /api/auth/register` - Inscription d'un nouvel utilisateur
-- `POST /api/auth/login` - Connexion utilisateur
+- `POST /api/auth/account` - Inscription d'un nouvel utilisateur
+- `POST /api/auth/token` - Connexion utilisateur
 
 ### Produits
 - `GET /api/products` - Récupérer tous les produits
@@ -53,13 +53,13 @@ src/
 ### Panier
 - `GET /api/cart` - Voir le panier
 - `POST /api/cart/add` - Ajouter un produit au panier
-- `PUT /api/cart/update` - Mettre à jour la quantité
-- `DELETE /api/cart/remove` - Retirer un produit du panier
+- `PUT /api/cart/:id` - Mettre à jour la quantité
+- `DELETE /api/cart/:id` - Retirer un produit du panier
 
 ### Liste de Souhaits
 - `GET /api/wishlist` - Voir la liste de souhaits
 - `POST /api/wishlist/add` - Ajouter à la liste de souhaits
-- `DELETE /api/wishlist/remove` - Retirer de la liste de souhaits
+- `DELETE /api/wishlist/:id` - Retirer de la liste de souhaits
 
 ## Sécurité
 

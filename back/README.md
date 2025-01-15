@@ -39,8 +39,8 @@ src/
 ## Points d'API
 
 ### Authentification
-- `POST /api/auth/register` - Inscription d'un nouvel utilisateur
-- `POST /api/auth/login` - Connexion utilisateur
+- `POST /api/auth/account` - Inscription d'un nouvel utilisateur
+- `POST /api/auth/token` - Connexion utilisateur
 
 ### Produits
 - `GET /api/products` - Récupérer tous les produits
