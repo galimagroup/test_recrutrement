@@ -8,7 +8,8 @@ Front:
 	primeng 17.18.0
 
 Back:
-	Spring Boot/ Spring Security 6.x
+	Spring Boot 3.4.1/ Spring Security 6.x
 	Java 17.0.10
 	MongoDB 8.0.4
+	Postman
 	
