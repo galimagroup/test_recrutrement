@@ -1,0 +1,40 @@
+server:
+  port: 8090
+  servlet:
+    context-path: /test-api-v1
+spring:
+  application:
+    name: am
+  datasource:
+    url: jdbc:postgresql://localhost:5432/db_test
+    username: postgres
+    password: postgres
+    hikari:
+      max-lifetime: 9000
+      maximum-pool-size: 40
+      minimum-idle: 0
+  jpa:
+    hibernate:
+      ddl-auto: update
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+#  security:
+#    oauth2:
+#      resourceserver:
+#        jwt:
+#          issuer-uri: http://localhost:8081/realms/owod-realm
+#          jwk-set-uri: ${spring.security.oauth2.resourceserver.jwt.issuer-uri}/protocol/openid-connect/certs
+
+#app:
+#  url:
+#    front: http://10.3.80.23:30023/#/auth
+
+#file:
+#  upload-dir: /opt/assets
+#api:
+#  base:
+#    url: https://owod-api.gainde2000.sn/owod-api-v1
