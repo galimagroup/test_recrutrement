@@ -1,3 +1,5 @@
+<h1 class="text-center">Valeur du panier {{sum() | currency : "EUR"}}</h1>
+
 <p-dataView #dv [value]="orders()">
   <ng-template pTemplate="list" let-orders>
       @for (order of orders; track order) {
@@ -5,7 +7,7 @@
             <span class="font-medium text-secondary text-sm">{{ order.product.category }}</span>
             <div class="flex">
               <div class="col-md-2">
-                <div><img width="200px" height="200px" src="order.product.image"></div>
+                <div><img width="200px" height="200px" src="assets/eCommerce-Marketing.png"></div>
               </div>
               <div class="col-md-5">
                 <div class="text-lg font-medium text-900 mt-2 ml-2">{{ order.product.name }}</div>

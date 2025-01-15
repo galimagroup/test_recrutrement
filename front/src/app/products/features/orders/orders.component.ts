@@ -63,4 +63,8 @@ export class OrdersComponent {
   onDelete(order:Order){
     this.ordersService.delete(order.id).subscribe();
   }
+
+  sum():number{
+   return this.orders().reduce((value,order) => value + (order.quantity*order.product.price),0);
+  }
 }
