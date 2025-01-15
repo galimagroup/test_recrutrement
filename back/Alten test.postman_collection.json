@@ -1,0 +1,434 @@
+{
+	"info": {
+		"_postman_id": "02db805b-599d-4a09-89c2-fb8cbe0f1d95",
+		"name": "Alten test",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "15881491"
+	},
+	"item": [
+		{
+			"name": "Register",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"firstname\": \"admin\",\r\n    \"lastname\": \"admin\",\r\n    \"email\": \"admin@admin.com\",\r\n    \"password\": \"Passer123\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/auth/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"auth",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "authenticate",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\":\"admin@admin.com\",\r\n    \"password\":\"Passer123\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/auth/authenticate",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"auth",
+						"authenticate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Products",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var template = `\r",
+							"<style type=\"text/css\">\r",
+							"    .tftable {font-size:14px;color:#333333;width:100%;border-width: 1px;border-color: #87ceeb;border-collapse: collapse;}\r",
+							"    .tftable th {font-size:18px;background-color:#87ceeb;border-width: 1px;padding: 8px;border-style: solid;border-color: #87ceeb;text-align:left;}\r",
+							"    .tftable tr {background-color:#ffffff;}\r",
+							"    .tftable td {font-size:14px;border-width: 1px;padding: 8px;border-style: solid;border-color: #87ceeb;}\r",
+							"    .tftable tr:hover {background-color:#e0ffff;}\r",
+							"</style>\r",
+							"\r",
+							"<table class=\"tftable\" border=\"1\">\r",
+							"    <tr>\r",
+							"        <th>ID</th>\r",
+							"        <th>Code</th>\r",
+							"        <th>Name</th>\r",
+							"        <th>Description</th>\r",
+							"        <th>Image</th>\r",
+							"        <th>Category</th>\r",
+							"        <th>Price</th>\r",
+							"        <th>Quantity</th>\r",
+							"        <th>Inventory Status</th>\r",
+							"    </tr>\r",
+							"    \r",
+							"    {{#each response.object}}\r",
+							"        <tr>\r",
+							"            <td>{{id}}</td>\r",
+							"            <td>{{code}}</td>\r",
+							"            <td>{{name}}</td>\r",
+							"            <td>{{description}}</td>\r",
+							"            <td>{{image}}</td>\r",
+							"            <td>{{category}}</td>\r",
+							"            <td>{{price}}</td>\r",
+							"            <td>{{quantity}}</td>\r",
+							"            <td>{{inventoryStatus}}</td>\r",
+							"        </tr>\r",
+							"    {{/each}}\r",
+							"</table>\r",
+							"`;\r",
+							"\r",
+							"function constructVisualizerPayload() {\r",
+							"    return { response: pm.response.json() }\r",
+							"}\r",
+							"\r",
+							"pm.visualizer.set(template, constructVisualizerPayload());"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"code\": \"string\",\r\n  \"name\": \"product dem\",\r\n  \"description\": \"description\",\r\n  \"image\": \"image\",\r\n  \"category\": \"string\",\r\n  \"price\": 20,\r\n  \"quantity\": 5,\r\n  \"internalReference\": \"string\",\r\n  \"shellId\": 1,\r\n  \"inventoryStatus\": \"INSTOCK\",\r\n  \"rating\": 4\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/products",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"products"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Products update",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\":1,\r\n  \"code\": \"string\",\r\n  \"name\": \"product update\",\r\n  \"description\": \"description update\",\r\n  \"image\": \"image\",\r\n  \"category\": \"string\",\r\n  \"price\": 20,\r\n  \"quantity\": 5,\r\n  \"internalReference\": \"string\",\r\n  \"shellId\": 1,\r\n  \"inventoryStatus\": \"INSTOCK\",\r\n  \"rating\": 4\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/products/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"products",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Products update Copy",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"code\": \"string\",\r\n  \"name\": \"product dem  patch\",\r\n  \"description\": \"description patch\",\r\n  \"internalReference\": \"string\",\r\n  \"shellId\": 1,\r\n  \"inventoryStatus\": \"INSTOCK\",\r\n  \"rating\": 4\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/products/152",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"products",
+						"152"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "All Products",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"code\": \"string\",\r\n  \"name\": \"product dem\",\r\n  \"description\": \"description\",\r\n  \"image\": \"image\",\r\n  \"category\": \"string\",\r\n  \"price\": 20,\r\n  \"quantity\": 5,\r\n  \"internalReference\": \"string\",\r\n  \"shellId\": 1,\r\n  \"inventoryStatus\": \"INSTOCK\",\r\n  \"rating\": 4\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/products",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"products"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Products by id",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"code\": \"string\",\r\n  \"name\": \"product dem\",\r\n  \"description\": \"description\",\r\n  \"image\": \"image\",\r\n  \"category\": \"string\",\r\n  \"price\": 20,\r\n  \"quantity\": 5,\r\n  \"internalReference\": \"string\",\r\n  \"shellId\": 1,\r\n  \"inventoryStatus\": \"INSTOCK\",\r\n  \"rating\": 4\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/products/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"products",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add to my cart",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"product\": \r\n    {\r\n        \"id\":2,\r\n  \"code\": \"string\",\r\n  \"name\": \"product dem\",\r\n  \"description\": \"description\",\r\n  \"image\": \"image\",\r\n  \"category\": \"string\",\r\n  \"price\": 20,\r\n  \"quantity\": 5,\r\n  \"internalReference\": \"string\",\r\n  \"shellId\": 1,\r\n  \"inventoryStatus\": \"INSTOCK\",\r\n  \"rating\": 4\r\n},\r\n\"user\":{\r\n    \"id\":1\r\n},\r\n\"quantity\":7\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/products/cart/add",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"products",
+						"cart",
+						"add"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Remove to my cart",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"product\": \r\n    {\r\n        \"id\":1,\r\n  \"code\": \"string\",\r\n  \"name\": \"product dem\",\r\n  \"description\": \"description\",\r\n  \"image\": \"image\",\r\n  \"category\": \"string\",\r\n  \"price\": 20,\r\n  \"quantity\": 5,\r\n  \"internalReference\": \"string\",\r\n  \"shellId\": 1,\r\n  \"inventoryStatus\": \"INSTOCK\",\r\n  \"rating\": 4\r\n},\r\n\"user\":{\r\n    \"id\":1\r\n},\r\n\"quantity\":7\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/products/cart/remove",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"products",
+						"cart",
+						"remove"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "My Cart",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/products/cart",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"products",
+						"cart"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add To favorite",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "My favorites",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/products/like",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"products",
+						"like"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Remove to my favorite Copy",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/products/dislike/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"products",
+						"dislike",
+						"2"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBhZG1pbi5jb20iLCJpYXQiOjE3MzY5MzM2OTYsImV4cCI6MTczNzAyMDA5Nn0.i3qdu6Df7LQhgDz0qb4FbcC0NXDPyCL55gFghoKq47Y",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

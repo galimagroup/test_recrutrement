@@ -1,0 +1,36 @@
+<p-dataView #dv [value]="orders()">
+  <ng-template pTemplate="list" let-orders>
+      @for (order of orders; track order) {
+          <p-card class="block mb-2">
+            <span class="font-medium text-secondary text-sm">{{ order.product.category }}</span>
+            <div class="flex">
+              <div class="col-md-2">
+                <div><img width="200px" height="200px" src="order.product.image"></div>
+              </div>
+              <div class="col-md-5">
+                <div class="text-lg font-medium text-900 mt-2 ml-2">{{ order.product.name }}</div>
+              <div class="text-lg font-medium text-700 mt-2 ml-2">{{order.product.description}}</div>
+              <div class="text-lg font-medium text-700 mt-2 ml-2">{{order.product.price | currency : "EUR"}}</div>
+              <div class="text-700 mt-2 ml-2 mb-2">{{order.product.inventoryStatus}}</div>
+              <p-rating class="mt-2  ml-2" [readonly]="true" [stars]="order.product.rating"  [cancel]="false">
+              </p-rating>
+              </div>
+              <div>
+              <div class="flex  ml-5">
+                <p-button label="more (+)" severity="info" (onClick)="moreItem(order)"/>
+                <div class="text-lg font-medium text-900 mt-2 ml-2">{{ order.quantity }}</div>
+                <p-button label="Less (-)" severity="info" (onClick)="lessItem(order)"/>
+              </div>
+              <div class="gap-3 mt-5 ml-5">
+              <p-button label="Supprimer" severity="danger" (onClick)="onDelete(order)"/>
+            </div>
+            </div>
+            </div>
+              <ng-template pTemplate="footer">
+                  <div class="gap-3 mt-1">
+                  </div>
+              </ng-template>
+          </p-card>
+      }
+  </ng-template>
+</p-dataView>

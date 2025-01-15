@@ -1,0 +1,36 @@
+spring:
+    application:
+        name: e-commerce
+    datasource:
+        url: jdbc:h2:mem:alten #  jdbc:mysql://localhost:3306/db_alten
+        username:  sa # SpringBoot
+        password: password #  SpringBoot
+        driver-class-name: org.h2.Driver #com.mysql.cj.jdbc.Driver #
+    jpa:
+        hibernate:
+            ddl-auto: update
+        properties:
+            hibernate:
+                enable_lazy_load_no_trans : true
+        database: mysql
+        database-platform: org.hibernate.dialect.H2Dialect #org.hibernate.dialect.MySQL8Dialect #  
+        
+    h2:
+        console:
+            enabled: true
+            settings:
+                web-allow-others: true
+
+security:
+    basic:
+        enable: true
+        authorize-mode: NONE
+
+application:
+    security:
+        generated-password: Passer@123
+        jwt:
+            secret-key: 404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970
+            expiration: 86400000
+            refresh-token.expiration: 604800000
+            expiration-days: 365
