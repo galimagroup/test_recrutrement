@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.alten.e_commerce.config.utils.ApiResponse;
 import com.alten.e_commerce.dto.ProductDto;
-import com.alten.e_commerce.entity.Product;
 import com.alten.e_commerce.service.ProductService;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
