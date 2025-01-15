@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.alten.e_commerce.config.utils.ApiResponse;
+import com.alten.e_commerce.dto.ProductDto;
 import com.alten.e_commerce.entity.Product;
 import com.alten.e_commerce.service.ProductService;
 
@@ -30,7 +31,7 @@ public class ProductController {
     }
     
     @PostMapping
-    public ResponseEntity<ApiResponse> save(@RequestBody Product product){
+    public ResponseEntity<ApiResponse> save(@RequestBody ProductDto product){
         try{
             return ResponseEntity.ok(new ApiResponse(true, "saved successfully",HttpStatus.CREATED,productService.create(product)));
         }catch(Exception e){
@@ -57,7 +58,7 @@ public class ProductController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ApiResponse> update(@PathVariable Long id, @RequestBody Product product) {
+    public ResponseEntity<ApiResponse> update(@PathVariable Long id, @RequestBody ProductDto product) {
         try{
             return ResponseEntity.ok(new ApiResponse(true, "updated successfully",HttpStatus.ACCEPTED,productService.update(id,product)));
         }catch(Exception e){
@@ -66,7 +67,7 @@ public class ProductController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<ApiResponse> patch(@PathVariable Long id, @RequestBody Product product) {
+    public ResponseEntity<ApiResponse> patch(@PathVariable Long id, @RequestBody ProductDto product) {
         try{
             return ResponseEntity.ok(new ApiResponse(true, "updated successfully",HttpStatus.ACCEPTED,productService.patch(id,product)));
         }catch(Exception e){

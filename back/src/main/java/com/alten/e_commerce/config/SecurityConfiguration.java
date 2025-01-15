@@ -18,7 +18,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.logout.LogoutHandler;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import com.alten.e_commerce.auth.JwtAuthenticationFilter;
 
@@ -44,8 +43,7 @@ public class SecurityConfiguration {
     "/swagger-ui.html",
     "/api/v1/auth/**",
     "/h2-console/",
-    "/h2-console/**",
-    "/h2/**"
+    "/h2-console/**"
   };
   private final JwtAuthenticationFilter jwtAuthFilter;
   private final AuthenticationProvider authenticationProvider;

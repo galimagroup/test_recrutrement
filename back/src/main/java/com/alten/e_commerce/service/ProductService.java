@@ -4,11 +4,13 @@ import java.util.List;
 import java.util.Objects;
 import org.springframework.stereotype.Service;
 
+import com.alten.e_commerce.dto.ProductDto;
 import com.alten.e_commerce.entity.Product;
+import com.alten.e_commerce.interfaces.IProduct;
 import com.alten.e_commerce.repository.ProductRepository;
 
 @Service
-public class ProductService {
+public class ProductService implements IProduct{
     
     final ProductRepository productRepository;
 
@@ -16,32 +18,33 @@ public class ProductService {
         this.productRepository = productRepository;
     }
 
-    public Product create(Product product){
-        //Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        //User user = ((User) auth.getPrincipal());
-            Product p = productRepository.save(product);
+    @Override
+    public Product create(ProductDto productdDto){
+            
+            Product p = productRepository.save(productdDto.toProduct());
             return p;
     }
-
+    @Override
     public List<Product> findAll(){
         return productRepository.findAll();
     }
-
+    @Override
     public Product findWithId(Long id){
         return productRepository.findById(id).orElseThrow(() ->
         new RuntimeException("Customer not found!"));
     }
-
-    public Product update(Long id,Product product) {
+    @Override
+    public Product update(Long id,ProductDto productdDto) {
         findWithId(id);
-        return productRepository.save(product);         
+        return productRepository.save(productdDto.toProduct());         
     }
-
+    @Override
     public void delete(Long id){
         productRepository.deleteById(id);
     }
-
-    public Product patch(Long id,Product product){
+    @Override
+    public Product patch(Long id,ProductDto productdDto){
+        Product product = productdDto.toProduct();
         Product p = findWithId(id);
 
         if (Objects.nonNull(product.getCode()) && !"".equalsIgnoreCase(product.getCode())) {

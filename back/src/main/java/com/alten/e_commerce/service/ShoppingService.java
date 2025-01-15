@@ -13,12 +13,13 @@ import com.alten.e_commerce.entity.Product;
 import com.alten.e_commerce.entity.ShoppingCart;
 import com.alten.e_commerce.entity.ShoppingCartKey;
 import com.alten.e_commerce.entity.User;
+import com.alten.e_commerce.interfaces.IShopping;
 import com.alten.e_commerce.repository.ProductRepository;
 import com.alten.e_commerce.repository.ShoppingCartRepository;
 import com.alten.e_commerce.repository.UserRepository;
 
 @Service
-public class ShoppingService {
+public class ShoppingService implements IShopping{
     
     final ProductRepository productRepository;
     final UserRepository userRepository;
@@ -30,8 +31,8 @@ public class ShoppingService {
         this.shoppingCartRepository = shoppingCartRepository;
     }
 
-
-        public void like(Long productId){
+    @Override
+    public void like(Long productId){
         Product product = productRepository.findById(productId).orElseThrow(
             () -> new RuntimeException("Product not found")
         );
@@ -46,7 +47,7 @@ public class ShoppingService {
         user.setLikedProducts(products);
         userRepository.save(user);
     }
-
+    @Override
     public void dislike(Long productId){
         Product product = productRepository.findById(productId).orElseThrow(
             () -> new RuntimeException("Product not found")
@@ -62,7 +63,7 @@ public class ShoppingService {
         user.setLikedProducts(products);
         userRepository.save(user);
     }
-
+    @Override
     public ShoppingCart addToCart(ShoppingCart shoppingCart){
         User user = this.currentUser();
         ShoppingCartKey key = ShoppingCartKey.builder().productId(shoppingCart.getProduct().getId())
@@ -77,7 +78,7 @@ public class ShoppingService {
             return shoppingCartRepository.save(shoppingCart);
         }
     }
-
+    @Override
     public void removeToCart(ShoppingCart shoppingCart){
         User user = this.currentUser();
         ShoppingCartKey key = ShoppingCartKey.builder().productId(shoppingCart.getProduct().getId())
@@ -89,13 +90,13 @@ public class ShoppingService {
             shoppingCartRepository.delete(shoppingCart2.get());
         }
     }
-
+    @Override
     public List<ShoppingCart> myCarts(){
         User user = this.currentUser();
         List<ShoppingCart> carts = shoppingCartRepository.findAll().stream().filter(cart -> cart.getUser().getId().equals(user.getId())).collect(Collectors.toList());
         return carts;
     }
-
+    @Override
     public Set<Product> myFavoriteProducts(){
         User user = this.currentUser();
         return user.getLikedProducts();
