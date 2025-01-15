@@ -3,6 +3,7 @@
     - Java version 17 spring Boot version 3.4.1
     - base de donnée h2 embarqué
     - http acces : http://localhost:8080
+    - database access: http://localhost:8080/h2-console
     - swagger access : http://localhost:8080/swagger-ui/index.htm
     - Postname : une collection est disponible dans le dossier << back >> avec le nom (Alten test.postman_collection)
   ## Front
