@@ -1,4 +1,5 @@
 package com.galimagroup.gestionproduit.dto;
+
 import com.galimagroup.gestionproduit.entity.Produit;
 import com.galimagroup.gestionproduit.entity.enumeration.InventoryStatus;
 import lombok.AllArgsConstructor;
@@ -26,7 +27,6 @@ public class ProduitDto {
     private LocalDateTime updatedAt;
 
     public ProduitDto(Produit newproduit) {
-       // this.id = newproduit.getId();
         this.code = newproduit.getCode();
         this.name = newproduit.getName();
         this.description = newproduit.getDescription();
@@ -40,12 +40,10 @@ public class ProduitDto {
         this.createdAt = newproduit.getCreatedAt();
         this.updatedAt = newproduit.getUpdatedAt();
     }
-    // Méthode pour convertir le DTO en entité Produit
+
     public Produit recupererProduit() {
         Produit produit = new Produit();
-     //   produit.setId(this.id);
         produit.setCode(this.code);
-
         produit.setName(this.name);
         produit.setDescription(this.description);
         produit.setImage(this.image);
