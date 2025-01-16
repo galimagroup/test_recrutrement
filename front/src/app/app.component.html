@@ -5,12 +5,15 @@
     <div class="p-toolbar-group-center">
         {{ title }}
     </div>
-    <div class="p-toolbar-group-end">
-        <i class="pi pi-shopping-cart" style="font-size: 2rem"></i>
+  
+    <div class="p-toolbar-group-end" (click)="navigateToCart()" style="cursor: pointer;">
+      <i class="pi pi-shopping-cart" style="font-size: 2rem"></i>
+      <p-badge [value]="cartItemCount" severity="danger"></p-badge>
+
     </div>
 </p-toolbar>
-<p-splitter 
-    [panelSizes]="[20, 80]" 
+<p-splitter
+    [panelSizes]="[20, 80]"
     [style]="{ height: 'calc(100vh - 100px)' }">
     <ng-template pTemplate>
         <div class="w-full">

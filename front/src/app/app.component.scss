@@ -1,4 +1,10 @@
 .app-content {
     overflow: hidden;
     height: 100%;
+}/* Styles pour le badge du panier */
+.p-badge {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  transform: translate(50%, -50%);
 }

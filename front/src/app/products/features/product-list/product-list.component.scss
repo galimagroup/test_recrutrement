@@ -3,3 +3,43 @@
     height: 100%;
     overflow: auto;
 }
+/* Styles pour les cartes de produits */
+.p-card {
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s;
+}
+
+.p-card:hover {
+  transform: translateY(-5px);
+}
+
+.product-image {
+  width: 100%;
+  height: auto;
+  border-radius: 8px 8px 0 0;
+}
+
+.p-button {
+  border-radius: 4px;
+}
+
+.p-button.p-button-secondary {
+  background-color: #6c757d;
+  border-color: #6c757d;
+}
+
+.p-button.p-button-danger {
+  background-color: #dc3545;
+  border-color: #dc3545;
+}
+
+.p-button.p-button-secondary:hover {
+  background-color: #5a6268;
+  border-color: #5a6268;
+}
+
+.p-button.p-button-danger:hover {
+  background-color: #c82333;
+  border-color: #c82333;
+}
