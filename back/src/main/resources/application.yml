@@ -1,7 +1,7 @@
 server:
   port: 9595
   servlet:
-    context-path: /recrutement-api
+    context-path: /api
     error:
       include-message: always
       include-binding-errors: always

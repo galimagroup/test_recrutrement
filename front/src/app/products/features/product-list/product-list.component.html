@@ -1,0 +1,35 @@
+<h1 class="text-center">Liste des produits</h1>
+
+<p-button label="Créer produit" (onClick)="onCreate()" class="block text-center"/>
+
+<p-dataView #dv [value]="products()">
+    <ng-template pTemplate="list" let-products>
+        @for (product of paginatedProducts(); track product) {
+            <p-card class="block mb-2" [style]="{'position': 'relative'}">
+                <span class="font-medium text-secondary text-sm">{{ product.category }}</span>
+                <div class="text-lg font-medium text-900 mt-2">{{ product.name }}</div>
+                <span class="text-lg font-medium text-900">{{ '$' + product.price }}</span>
+
+                <ng-template pTemplate="footer">
+                    <div class="flex gap-3 mt-1">
+                        <p-button label="Modifier" severity="secondary" (onClick)="onUpdate(product)"/>
+                        <p-button label="Supprimer" severity="danger" (onClick)="onDelete(product)" />
+                        <p-button label="Ajouter au panier" severity="primary" (onClick)="onAddToCart(product)" />
+                        <p-button label="Enlever du panier" severity="danger" (onClick)="onRemoveFromCart(product.id)" />
+                    </div>
+                </ng-template>
+
+                <div class="card flex justify-content-center" style="position: absolute; top: 8px; right: 0px;">
+                    <p-inputNumber [(ngModel)]="cartQuantities[product.id]" (ngModelChange)="onAddToCart(product, $event)" [style]="{'width': '3rem'}" [showButtons]="true" buttonLayout="vertical"
+                        spinnerMode="vertical" inputId="vertical" decrementButtonClass="p-button-secondary"
+                        incrementButtonClass="p-button-secondary" incrementButtonIcon="pi pi-plus"
+                        decrementButtonIcon="pi pi-minus" />
+                </div>
+            </p-card>
+        }
+    </ng-template>
+</p-dataView>
+
+<p-paginator [rows]="pageSize()" [totalRecords]="totalRecords()" [showPageLinks]="true"
+    [rowsPerPageOptions]="rowsPerPageOptions" [first]="currentPage() * pageSize()" (onPageChange)="onPageChange($event)">
+</p-paginator>

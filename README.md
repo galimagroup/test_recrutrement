@@ -1,109 +1,101 @@
-# Consignes
+# Projet_Alten_SpringBoot_Angular
 
-- Vous êtes développeur front-end : vous devez réaliser les consignes décrites dans le chapitre [Front-end](#Front-end)
+# Backend API - Projet Alten E-commerce
 
-- Vous êtes développeur back-end : vous devez réaliser les consignes décrites dans le chapitre [Back-end](#Back-end) (*)
+Ce backend fournit une API RESTful pour une application E-commerce.
 
-- Vous êtes développeur full-stack : vous devez réaliser les consignes décrites dans le chapitre [Front-end](#Front-end) et le chapitre [Back-end](#Back-end) (*)
+## Technologies Utilisées
 
-(*) Afin de tester votre API, veuillez proposer une stratégie de test appropriée.
+- Spring Boot
+- Angular
+- Mysql
+- JWT pour l'authentification
+- bcryptjs pour le hachage des mots de passe
+- CORS pour la gestion des requêtes cross-origin
 
-## Front-end
+## Configuration
 
-Le site de e-commerce d'Alten a besoin de s'enrichir de nouvelles fonctionnalités.
+1. Installer les dépendances :
 
-### Partie 1 : Shop
-
-- Afficher toutes les informations pertinentes d'un produit sur la liste
-- Permettre d'ajouter un produit au panier depuis la liste 
-- Permettre de supprimer un produit du panier
-- Afficher un badge indiquant la quantité de produits dans le panier
-- Permettre de visualiser la liste des produits qui composent le panier.
-
-### Partie 2
-
-- Créer un nouveau point de menu dans la barre latérale ("Contact")
-- Créer une page "Contact" affichant un formulaire
-- Le formulaire doit permettre de saisir son email, un message et de cliquer sur "Envoyer"
-- Email et message doivent être obligatoirement remplis, message doit être inférieur à 300 caractères.
-- Quand le message a été envoyé, afficher un message à l'utilisateur : "Demande de contact envoyée avec succès".
-
-### Bonus : 
-
-- Ajouter un système de pagination et/ou de filtrage sur la liste des produits
-- On doit pouvoir visualiser et ajuster la quantité des produits depuis la liste et depuis le panier 
-
-## Back-end
-
-### Partie 1
-
-Développer un back-end permettant la gestion de produits définis plus bas.
-Vous pouvez utiliser la technologie de votre choix parmi la liste suivante :
-
-- Node.js/Express
-- Java/Spring Boot
-- C#/.net Core
-- PHP/Symphony : Utilisation d'API Platform interdite
-
-
-Le back-end doit gérer les API suivantes : 
-
-| Resource           | POST                  | GET                            | PATCH                                    | PUT | DELETE           |
-| ------------------ | --------------------- | ------------------------------ | ---------------------------------------- | --- | ---------------- |
-| **/products**      | Create a new product  | Retrieve all products          | X                                        | X   |     X            |
-| **/products/:id**  | X                     | Retrieve details for product 1 | Update details of product 1 if it exists | X   | Remove product 1 |
-
-Un produit a les caractéristiques suivantes : 
-
-``` typescript
-class Product {
-  id: number;
-  code: string;
-  name: string;
-  description: string;
-  image: string;
-  category: string;
-  price: number;
-  quantity: number;
-  internalReference: string;
-  shellId: number;
-  inventoryStatus: "INSTOCK" | "LOWSTOCK" | "OUTOFSTOCK";
-  rating: number;
-  createdAt: number;
-  updatedAt: number;
-}
+```bash
+mvn clean install
 ```
 
-Le back-end créé doit pouvoir gérer les produits dans une base de données SQL/NoSQL ou dans un fichier json.
+## Points d'API
 
-### Partie 2
+### Authentification
 
-- Imposer à l'utilisateur de se connecter pour accéder à l'API.
-  La connexion doit être gérée en utilisant un token JWT.  
-  Deux routes devront être créées :
-  * [POST] /account -> Permet de créer un nouveau compte pour un utilisateur avec les informations fournies par la requête.   
-    Payload attendu : 
-    ```
-    {
-      username: string,
-      firstname: string,
-      email: string,
-      password: string
-    }
-    ```
-  * [POST] /token -> Permet de se connecter à l'application.  
-    Payload attendu :  
-    ```
-    {
-      email: string,
-      password: string
-    }
-    ```
-    Une vérification devra être effectuée parmi tout les utilisateurs de l'application afin de connecter celui qui correspond aux infos fournies. Un token JWT sera renvoyé en retour de la reqûete.
-- Faire en sorte que seul l'utilisateur ayant le mail "admin@admin.com" puisse ajouter, modifier ou supprimer des produits. Une solution simple et générique devra être utilisée. Il n'est pas nécessaire de mettre en place une gestion des accès basée sur les rôles.
-- Ajouter la possibilité pour un utilisateur de gérer un panier d'achat pouvant contenir des produits.
-- Ajouter la possibilité pour un utilisateur de gérer une liste d'envie pouvant contenir des produits.
+- `POST /api/auth/account` - Inscription d'un nouvel utilisateur
+- `POST /api/auth/token` - Connexion utilisateur et génération token
 
-## Bonus
+### Produits
 
-Vous pouvez ajouter des tests Postman ou Swagger pour valider votre API
+- `GET /api/products` - Récupérer tous les produits
+- `GET /api/products/{productId}` - Récupérer un produit spécifique
+- `POST /api/products` - Créer un nouveau produit (Admin)
+- `PATCH /api/products/{productId}` - Mettre à jour un produit (Admin)
+- `DELETE /api/products/{productId}` - Supprimer un produit (Admin)
+
+### Panier
+
+- `GET /api/cart` - Voir le panier
+- `POST /api/cart` - Ajouter un produit au panier
+- `DELETE /api/cart/:id` - Retirer un produit du panier
+
+### Liste de Souhaits
+
+- `GET /api/wishlist` - Voir la liste de souhaits
+- `POST /api/wishlist` - Ajouter à la liste de souhaits
+- `DELETE /api/wishlist/{productId}` - Retirer de la liste de souhaits
+
+## Sécurité
+
+- L'authentification est gérée via JWT (JSON Web Tokens)
+- Les routes protégées nécessitent un token valide
+- Les routes admin sont restreintes à l'utilisateur avec l'email 'admin@admin.com'
+- Les restrictions se font avec de l'AOP (Aspect-Oriented Programming)
+- L'annotation '@Authorization' est créée pour gérer les permissions de l'utilisateur
+- Les mots de passe sont hashés avec bcryptjs
+
+## Démarrage
+
+Pour lancer le serveur en mode développement :
+
+```bash
+- mvn spring-boot:run
+```
+
+## Documentation
+
+- La documentation complete de L'API est disponible sur `http://localhost:9595/api/swagger-ui/index.html`
+- Une collection Postman est disponible dans le fichier `Documentation.json` pour tester toutes les routes de l'API.
+
+# Frontend - Projet Alten E-commerce
+
+Application frontend Angular pour l'e-commerce Alten, offrant une interface utilisateur moderne et responsive pour la gestion des produits, du panier et de la liste de souhaits.
+
+## Technologies Utilisées
+
+- Angular 18
+- PrimeNG 17.18.0 (Bibliothèque de composants UI)
+- PrimeFlex 3.3.1 (Système de grille CSS flexible)
+
+## Prérequis
+
+- Node.js (version LTS recommandée)
+- npm (gestionnaire de paquets Node.js)
+- Angular CLI (version 18.0.3)
+
+## Installation
+
+1. Installer les dépendances :
+
+```bash
+npm install
+```
+
+2. Démarrer le serveur de développement :
+
+```bash
+ng serve --open
+```
