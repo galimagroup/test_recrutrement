@@ -1,0 +1,68 @@
+<div class="featured-products mb-5">
+  <div class="container">
+    <h2 class="text-center mb-4">Produits en Vedette</h2>
+    
+    <div id="featuredCarousel" class="carousel slide" data-bs-ride="carousel">
+      <!-- Indicateurs -->
+      <div class="carousel-indicators">
+        <button *ngFor="let product of featuredProducts; let i = index"
+                type="button"
+                [class.active]="i === activeSlide"
+                [attr.aria-current]="i === activeSlide"
+                (click)="setActiveSlide(i)"
+                [attr.aria-label]="'Slide ' + (i + 1)">
+        </button>
+      </div>
+
+      <!-- Slides -->
+      <div class="carousel-inner">
+        <div *ngFor="let product of featuredProducts; let i = index"
+             class="carousel-item"
+             [class.active]="i === activeSlide">
+          <div class="featured-product-content">
+            <div class="row align-items-center">
+              <div class="col-md-6">
+                <img [src]="product.image" [alt]="product.name" class="featured-image">
+              </div>
+              <div class="col-md-6">
+                <div class="featured-details">
+                  <h3>{{product.name}}</h3>
+                  <p class="lead">{{product.description}}</p>
+                  <div class="d-flex align-items-center mb-3">
+                    <span class="h2 mb-0 me-3">{{product.price}} fcfa</span>
+                    <span [class]="'badge ' + getStatusBadgeClass(product.inventoryStatus)">
+                      {{product.inventoryStatus}}
+                    </span>
+                  </div>
+
+                  <!-- Sélection de la quantité -->
+                  <div class="mb-3 d-flex align-items-center">
+                    <label class="me-2">Quantité :</label>
+                    <input type="number" min="1" [(ngModel)]="quantities[i]" class="form-control w-25 me-3" />
+                  </div>
+
+                  <!-- Bouton Ajouter au panier -->
+                  <button class="btn btn-primary btn-lg"
+                    (click)="addToCart(product, quantities[i])"
+                    [disabled]="product.inventoryStatus === 'OUTOFSTOCK'">
+                      <i class="bi bi-cart-plus"></i> Ajouter au panier
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Contrôles -->
+      <button class="carousel-control-prev" type="button" (click)="previousSlide()">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Précédent</span>
+      </button>
+      <button class="carousel-control-next" type="button" (click)="nextSlide()">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Suivant</span>
+      </button>
+    </div>
+  </div>
+</div>

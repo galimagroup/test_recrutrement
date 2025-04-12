@@ -1,0 +1,122 @@
+.contact-container {
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  background-color: white;
+  width: 100%;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+.contact-wrapper {
+  max-width: 900px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+:host {
+  display: block;
+  width: 100%;
+}
+
+.card {
+  max-width: 1000px;
+  margin: auto;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+label {
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+input, textarea {
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 16px;
+  transition: border-color 0.3s;
+}
+
+input:focus, textarea:focus {
+  outline: none;
+  border-color: #3498db;
+}
+
+input.error, textarea.error {
+  border-color: #e74c3c;
+}
+
+.error-message {
+  color: #e74c3c;
+  font-size: 14px;
+}
+
+button {
+  padding: 12px 24px;
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s;
+}
+
+button:hover:not(:disabled) {
+  background-color: #2980b9;
+}
+
+button:disabled {
+  background-color: #bdc3c7;
+  cursor: not-allowed;
+}
+
+.success-message {
+  color: #27ae60;
+  text-align: center;
+  padding: 10px;
+  background-color: #f0f9f0;
+  border-radius: 4px;
+  animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+@media (max-width: 768px) {
+  .contact-container {
+    max-width: 100%; 
+    padding: 15px; 
+  }
+
+  .contact-form {
+    padding: 20px; 
+  }
+}
+
+@media (max-width: 480px) {
+  .contact-form {
+    padding: 15px; 
+  }
+}

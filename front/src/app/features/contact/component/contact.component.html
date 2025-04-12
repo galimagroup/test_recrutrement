@@ -1,0 +1,58 @@
+<div class="py-5" style="width: 100%;">
+  <div class="row justify-content-center m-0">
+    <div class="col-12 col-md-11 col-lg-10 px-0">
+      <div class="card shadow mx-auto contact-wrapper" style="max-width: 700px;">
+        <div class="card-body">
+          <h2 class="card-title text-center mb-4">Contactez-nous</h2>
+
+          <form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
+            <div class="mb-3">
+              <label for="email" class="form-label">Email</label>
+              <input 
+                id="email" 
+                type="email" 
+                class="form-control"
+                [class.is-invalid]="isFieldInvalid('email')"
+                formControlName="email"
+                placeholder="votre@email.com"
+              >
+              <div class="invalid-feedback" *ngIf="isFieldInvalid('email')">
+                Email invalide
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="message" class="form-label">Message</label>
+              <textarea 
+                id="message" 
+                class="form-control"
+                [class.is-invalid]="isFieldInvalid('message')"
+                formControlName="message"
+                rows="5"
+                placeholder="Votre message..."
+              ></textarea>
+              <div class="invalid-feedback" *ngIf="isFieldInvalid('message')">
+                Le message est requis et doit faire moins de 300 caractères
+              </div>
+            </div>
+
+            <div class="d-grid">
+              <button 
+                type="submit" 
+                class="btn btn-primary"
+                [disabled]="contactForm.invalid || isSubmitting">
+                <span class="spinner-border spinner-border-sm me-2" *ngIf="isSubmitting"></span>
+                {{ isSubmitting ? 'Envoi en cours...' : 'Envoyer' }}
+              </button>
+            </div>
+
+            <div class="alert alert-success mt-3" *ngIf="submitSuccess">
+              <i class="bi bi-check-circle-fill me-2"></i>
+              Demande de contact envoyée avec succès
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

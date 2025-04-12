@@ -1,15 +1,17 @@
-import { Routes } from "@angular/router";
-import { HomeComponent } from "./shared/features/home/home.component";
+import { Routes } from '@angular/router';
 
-export const APP_ROUTES: Routes = [
+export const routes: Routes = [
   {
-    path: "home",
-    component: HomeComponent,
+    path: '',
+    loadChildren: () => import('./features/home/home.routes').then(m => m.HOME_ROUTES)
   },
   {
-    path: "products",
-    loadChildren: () =>
-      import("./products/products.routes").then((m) => m.PRODUCTS_ROUTES)
+    path: 'contact',
+    loadChildren: () => import('./features/contact/contact.routes').then(m => m.CONTACT_ROUTES)
   },
-  { path: "", redirectTo: "home", pathMatch: "full" },
+  {
+    path: 'panier',
+    loadChildren: () => import('./features/panier/panier.routes').then(m => m.PANIER_ROUTES)
+  }
+  
 ];
