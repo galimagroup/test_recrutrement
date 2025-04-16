@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../../../../core/services/product.service';
 import { PanierService } from '../../../../core/services/panier.service';
 import { Product } from '../../../../core/models/product.model';
+import { AuthService } from '../../../../core/services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-featured-products',
@@ -15,10 +17,18 @@ export class FeaturedProductsComponent implements OnInit {
 
   constructor(
     private productService: ProductService,
-    private panierService: PanierService
+    private panierService: PanierService,
+    private authService: AuthService,
+    private router: Router
   ) {}
 
+  errorMsg: string | null = null;
+
   ngOnInit(): void {
+    if (!this.authService.isAuthenticated()) {
+      this.router.navigate(['/login']);
+      return;
+    }
     this.loadFeaturedProducts();
   }
 
@@ -29,7 +39,12 @@ export class FeaturedProductsComponent implements OnInit {
         this.quantities = this.featuredProducts.map(() => 1);
       },
       error: (error: any) => {
-        console.error('Erreur lors du chargement des produits en vedette:', error);
+        if (error.status === 401 || error.status === 403) {
+          this.router.navigate(['/login']);
+        } else {
+          this.errorMsg = 'Erreur lors du chargement des produits en vedette';
+          console.error('Erreur lors du chargement des produits en vedette:', error);
+        }
       }
     });
   }

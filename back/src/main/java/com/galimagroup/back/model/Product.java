@@ -1,5 +1,7 @@
 package com.galimagroup.back.model;
 
+import java.time.LocalDateTime;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -23,6 +25,6 @@ public class Product {
     private Long shellId;
     private String inventoryStatus;
     private Integer rating;
-    private Long createdAt;
-    private Long updatedAt;
+    private LocalDateTime createdAt;  
+    private LocalDateTime updatedAt;  
 }

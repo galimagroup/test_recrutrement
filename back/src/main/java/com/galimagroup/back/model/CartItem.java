@@ -1,5 +1,6 @@
 package com.galimagroup.back.model;
 
+
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -12,6 +13,9 @@ public class CartItem {
 
     @ManyToOne
     private Product product;
+
+    @ManyToOne
+    private Cart cart;
 
     private Integer quantity;
 }

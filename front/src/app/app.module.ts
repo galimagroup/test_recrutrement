@@ -14,6 +14,9 @@ import { RouterModule } from '@angular/router';
 import { RouterOutlet } from '@angular/router';
 import { routes } from './app.routes';
 
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
+import { authInterceptor } from './core/interceptors/auth.interceptor';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -33,6 +36,9 @@ import { routes } from './app.routes';
     HeaderComponent,  
     FooterComponent,    
     RouterOutlet      
+  ],
+  providers: [
+    provideHttpClient(withInterceptors([authInterceptor]))
   ],
   bootstrap: [AppComponent]
 })

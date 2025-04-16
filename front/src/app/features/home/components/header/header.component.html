@@ -31,7 +31,7 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav me-auto">
           <li class="nav-item">
-            <a class="nav-link" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+            <a class="nav-link" routerLink="/home" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
               <i class="bi bi-house-door"></i> Accueil
             </a>
           </li>
@@ -41,13 +41,17 @@
             </a>
           </li>
         </ul>
-        <div class="d-flex align-items-center">
+        <div class="d-flex align-items-center gap-2">
           <a class="btn btn-light position-relative" routerLink="/panier">
             <i class="bi bi-cart3"></i> Panier
             <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
               {{( cartItemCount$ | async) || 0}}
             </span>
           </a>
+          
+          <button *ngIf="isAuthenticated()" class="btn btn-outline-light ms-2" (click)="logout()">
+            <i class="bi bi-box-arrow-right"></i> Déconnexion
+          </button>
         </div>
       </div>
     </div>

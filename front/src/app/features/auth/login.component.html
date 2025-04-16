@@ -1,0 +1,49 @@
+<div class="container py-5" style="width: 100%;">
+  <div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6" style="max-width: 600px;">
+      <div class="card shadow mx-auto">
+        <div class="card-body">
+          <h3 class="card-title mb-4 text-center">Connexion</h3>
+          <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+            <div class="mb-3">
+              <label for="email" class="form-label">Email</label>
+              <input id="email" type="email" class="form-control" formControlName="email" [class.is-invalid]="loginForm.get('email')?.invalid && loginForm.get('email')?.touched">
+              <div *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched" class="invalid-feedback">
+                Email invalide
+              </div>
+            </div>
+            <div class="mb-3 password-error" *ngIf="errorMsg; else normalPasswordField">
+  <label for="password" class="form-label">Mot de passe</label>
+  <div class="input-group">
+  <input id="password" [type]="showPassword ? 'text' : 'password'" class="form-control" formControlName="password">
+  <button type="button" class="btn btn-outline-secondary show-password-btn" (click)="togglePasswordVisibility()" tabindex="-1">
+    <span [ngClass]="showPassword ? 'bi bi-eye-slash' : 'bi bi-eye'"></span>
+  </button>
+</div>
+  <div class="invalid-feedback" style="display:block; color:#dc3545">Mot de passe incorrect</div>
+</div>
+<ng-template #normalPasswordField>
+  <div class="mb-3">
+    <label for="password" class="form-label">Mot de passe</label>
+    <div class="input-group">
+      <input id="password" [type]="showPassword ? 'text' : 'password'" class="form-control" formControlName="password" [class.is-invalid]="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
+      <button type="button" class="btn btn-outline-secondary show-password-btn" (click)="togglePasswordVisibility()" tabindex="-1">
+        <span [ngClass]="showPassword ? 'bi bi-eye-slash' : 'bi bi-eye'"></span>
+      </button>
+    </div>
+    <div *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched" class="invalid-feedback">
+      Mot de passe requis
+    </div>
+  </div>
+</ng-template>
+            <div *ngIf="errorMsg" class="alert alert-danger text-center">{{ errorMsg }}</div>
+            <button type="submit" class="btn w-100" [ngClass]="{'btn-danger': errorMsg, 'btn-primary': !errorMsg}" [disabled]="loading">
+  <span *ngIf="loading" class="spinner-border spinner-border-sm me-2"></span>
+  Connexion
+</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

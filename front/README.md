@@ -1,20 +1,65 @@
-# Front
+# 👋 Bienvenue sur la boutique démo !
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.14.
+Ce projet, c'est une petite boutique en ligne réalisée avec Angular. Tu peux te connecter, parcourir des produits illustrés, ajouter au panier, et envoyer un message via le formulaire de contact.
 
-## Development server
+## Ce que tu peux faire
+- Te connecter (authentification simple)
+- Voir une sélection de produits (images, prix, catégories)
+- Ajouter des articles à ton panier
+- Nous contacter via le formulaire
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## Pour tester chez toi (en 2 minutes)
+1. Installe les dépendances :
+   ```bash
+   npm install
+   ```
+2. Démarre le serveur de développement :
+   ```bash
+   ng serve
+   ```
+3. Ouvre [http://localhost:4200](http://localhost:4200) dans ton navigateur.
 
-## Code scaffolding
+## Identifiants de connexion par défaut
+- **Email** : admin@admin.com
+- **Mot de passe** : adminPassword123
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+*(Ces identifiants sont créés automatiquement au démarrage du backend)*
 
-## Build
+## Prérequis techniques
+- **Angular** : version 17.3.14
+- **Node.js** : v18 ou supérieur
+- **Java** : version 17 minimum
+- **Spring Boot** : version 3.2.x
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+## À propos
+- Les images produits sont dans `src/assets/` et sont toujours accessibles.
+- Ce front communique avec un backend Spring Boot (voir dossier `back/`).
 
-## Running unit tests
+Bonne visite, et n’hésite pas à proposer des améliorations ou à poser des questions !
+3. Va sur [http://localhost:4200](http://localhost:4200) dans ton navigateur.
+
+Les images produits sont dans `src/assets/`, donc tout s'affiche même sans internet !
+
+## Prérequis
+- Node.js (v18 ou plus)
+- Angular CLI
+
+## Un mot de plus
+Ce front échange avec un backend Spring Boot (voir dossier `back/`).
+
+Bonne visite, et n'hésite pas à améliorer ou à poser des questions si besoin !
+
+## Structure des données produits
+Les images des produits sont stockées dans `src/assets/` et référencées dans la base de données.
+
+## Prérequis
+- Node.js (v18 ou supérieur recommandé)
+- Angular CLI
+
+## À propos
+Ce front interagit avec un backend Spring Boot (voir dossier `back/`).
+
+Pour toute question ou amélioration, contacte le développeur du projet.
 
 Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 

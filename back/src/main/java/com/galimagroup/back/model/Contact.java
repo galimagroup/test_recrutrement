@@ -1,8 +1,14 @@
 package com.galimagroup.back.model;
 
+import java.time.LocalDateTime;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Size;
+    
 import lombok.Data;
 
 @Data
@@ -18,5 +24,10 @@ public class Contact {
     @Size(max = 300)
     private String message;
 
-    private Long createdAt;
+    @CreationTimestamp
+    private LocalDateTime createdAt;
+
+    @UpdateTimestamp
+    private LocalDateTime updatedAt;
+
 }

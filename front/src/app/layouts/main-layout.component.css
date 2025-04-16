@@ -1,0 +1,7 @@
+/* Styles pour le layout principal */
+.d-flex {
+  min-height: 100vh;
+}
+main {
+  background: #f8f9fa;
+}

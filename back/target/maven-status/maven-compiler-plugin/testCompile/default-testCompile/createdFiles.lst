@@ -1,1 +1,4 @@
+com\galimagroup\back\config\TestSecurityConfig.class
 com\galimagroup\back\controller\ProductControllerTest.class
+com\galimagroup\back\controller\AuthControllerTest.class
+com\galimagroup\back\controller\ContactControllerTest.class

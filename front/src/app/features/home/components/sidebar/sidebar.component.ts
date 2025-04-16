@@ -13,7 +13,7 @@ import { MatListModule } from '@angular/material/list';
 })
 export class SidebarComponent {
   menuItems = [
-    { label: 'Accueil', path: '/', icon: 'home' },
+    { label: 'Accueil', path: '/home', icon: 'home' },
     { label: 'Produits', path: '/products', icon: 'shopping_cart' },
     { label: 'Contact', path: '/contact', icon: 'contact_mail' },
     { label: 'Panier', path: '/panier', icon: 'shopping_cart' }

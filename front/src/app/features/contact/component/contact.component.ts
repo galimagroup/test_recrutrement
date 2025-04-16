@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { environment } from '../../../../environment/environment';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
@@ -34,7 +35,7 @@ export class ContactComponent {
   onSubmit(): void {
     if (this.contactForm.valid && !this.isSubmitting) {
       this.isSubmitting = true;
-      this.http.post('http://localhost:8080/api/contact', this.contactForm.value)
+      this.http.post(`${environment.apiUrl}/contact`, this.contactForm.value)
         .subscribe({
           next: () => {
             this.submitSuccess = true;

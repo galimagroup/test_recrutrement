@@ -12,7 +12,7 @@ interface AuthResponse {
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = environment.apiUrl + '/auth';  // Utilisation de l'URL de l'environnement
+  private apiUrl = environment.apiUrl; // Utilisation de l'URL de l'environnement
   private userSubject = new BehaviorSubject<{ token: string } | null>(null);
 
   constructor(private http: HttpClient) {
@@ -40,7 +40,7 @@ export class AuthService {
 
   // Connexion d'un utilisateur
   login(credentials: { email: string; password: string }): Observable<AuthResponse | null> {
-    return this.http.post<AuthResponse>(`${this.apiUrl}/login`, credentials).pipe(
+    return this.http.post<AuthResponse>(`${this.apiUrl}/token`, credentials).pipe(
       tap((response) => {
         if (response.token) {
           localStorage.setItem('token', response.token);

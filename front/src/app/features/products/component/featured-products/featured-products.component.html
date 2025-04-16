@@ -22,7 +22,7 @@
           <div class="featured-product-content">
             <div class="row align-items-center">
               <div class="col-md-6">
-                <img [src]="product.image" [alt]="product.name" class="featured-image">
+                <img [src]="product.image.startsWith('http') ? product.image : 'assets/' + product.image" [alt]="product.name" class="featured-image">
               </div>
               <div class="col-md-6">
                 <div class="featured-details">

@@ -1,45 +1,44 @@
 package com.galimagroup.back.security;
 
+import java.util.Collections;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
+import lombok.RequiredArgsConstructor;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
-import org.springframework.stereotype.Component;
-import org.springframework.util.StringUtils;
-import org.springframework.web.filter.OncePerRequestFilter;
-import com.galimagroup.back.service.CustomUserDetailsService;
-import lombok.RequiredArgsConstructor;
 import java.io.IOException;
+import org.springframework.stereotype.Component;
+import org.springframework.web.filter.OncePerRequestFilter;
 
 @Component
 @RequiredArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private final JwtTokenProvider tokenProvider;
-    private final CustomUserDetailsService customUserDetailsService;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
-        try {
-            String jwt = getJwtFromRequest(request);
 
-            if (StringUtils.hasText(jwt) && tokenProvider.validateToken(jwt)) {
-                String email = tokenProvider.getEmailFromJWT(jwt);
-                UserDetails userDetails = customUserDetailsService.loadUserByUsername(email);
-                
-                UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
-                        userDetails, null, userDetails.getAuthorities());
-                authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+        String path = request.getRequestURI();
+        if ("/api/contact".equals(path)) {
+            filterChain.doFilter(request, response);
+            return;
+        }
 
+        String token = getJwtFromRequest(request);
+
+        if (token != null && tokenProvider.validateToken(token)) {
+            String email = tokenProvider.getEmailFromJWT(token);
+            // Vérifier si l'email est celui de l'admin
+            if ("admin@admin.com".equals(email)) {
+                // Authentifier l'utilisateur admin
+                UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(email, null, Collections.emptyList()
+                );
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             }
-        } catch (Exception ex) {
-            logger.error("Could not set user authentication in security context", ex);
         }
 
         filterChain.doFilter(request, response);
@@ -47,7 +46,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private String getJwtFromRequest(HttpServletRequest request) {
         String bearerToken = request.getHeader("Authorization");
-        if (StringUtils.hasText(bearerToken) && bearerToken.startsWith("Bearer ")) {
+        if (bearerToken != null && bearerToken.startsWith("Bearer ")) {
             return bearerToken.substring(7);
         }
         return null;

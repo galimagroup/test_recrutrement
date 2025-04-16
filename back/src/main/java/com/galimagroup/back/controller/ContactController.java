@@ -1,11 +1,11 @@
 package com.galimagroup.back.controller;
 
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-import com.galimagroup.back.model.Contact;
+import com.galimagroup.back.dto.ContactDto;
 import com.galimagroup.back.service.ContactService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/contact")
@@ -16,7 +16,8 @@ public class ContactController {
     private final ContactService contactService;
 
     @PostMapping
-    public ResponseEntity<Contact> submitContact(@Valid @RequestBody Contact contact) {
-        return ResponseEntity.ok(contactService.saveContact(contact));
+    public ResponseEntity<ContactDto> submitContact(@Valid @RequestBody ContactDto contactDto) {
+        ContactDto savedContact = contactService.saveContact(contactDto);
+        return ResponseEntity.status(201).body(savedContact);
     }
 }

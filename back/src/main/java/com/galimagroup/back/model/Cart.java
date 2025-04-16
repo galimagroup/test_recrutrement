@@ -13,9 +13,10 @@ public class Cart {
     private Long id;
 
     @ManyToOne
-    private User user;
+    @JoinColumn(name = "user_id")
+    private Users user;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CartItem> items = new ArrayList<>();
 
     private Double total = 0.0;
