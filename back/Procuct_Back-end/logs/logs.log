@@ -1,0 +1,7 @@
+2025-06-02T00:24:04.915Z  WARN 46671 --- [Procuct_Back-end] [HikariPool-2:housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-2 - Thread starvation or clock leap detected (housekeeper delta=49s904ms).
+2025-06-02T00:27:27.561Z  WARN 46671 --- [Procuct_Back-end] [HikariPool-2:housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-2 - Thread starvation or clock leap detected (housekeeper delta=2m52s614ms).
+2025-06-02T00:28:42.157Z  INFO 46671 --- [Procuct_Back-end] [SpringApplicationShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2025-06-02T00:28:42.172Z  INFO 46671 --- [Procuct_Back-end] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+2025-06-02T00:28:42.246Z  INFO 46671 --- [Procuct_Back-end] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-06-02T00:28:42.259Z  INFO 46671 --- [Procuct_Back-end] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Shutdown initiated...
+2025-06-02T00:28:42.263Z  INFO 46671 --- [Procuct_Back-end] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Shutdown completed.

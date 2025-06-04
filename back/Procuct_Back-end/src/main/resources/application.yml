@@ -1,0 +1,24 @@
+server:
+  port: 8081
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/back-end-db?createDatabaseIfNotExist=true&useUnicode=true&useJDBCCompliantTimezoneShift=true
+    username: root
+    password:
+  application:
+    name: spring-admin
+  jpa:
+    hibernate:
+      ddl-auto: update
+      dialect: org.hibernate.dialect.MySQL8Dialect
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+# Configuration JWT
+jwt:
+  secret: "votre-secret-tres-long-et-securise-au-moins-32-caracteres" # Doit être au moins 32 caractères
+  expiration: 3600000 # 1 heure en millisecondes (3600000 ms = 1h)
+logging:
+    file:
+      name: logs/logs.log

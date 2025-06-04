@@ -1,0 +1,20 @@
+package com.backend.procuct_backend.dto;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.time.LocalDateTime;
+import java.util.List;
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class Cart {
+    private int id;
+    private int userId;
+    private List<CartItem> items;
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
+    private int totalPrice;
+}
+
