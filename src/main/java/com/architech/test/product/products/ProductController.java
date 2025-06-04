@@ -14,11 +14,13 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 import static java.time.LocalDateTime.now;
 import static org.springframework.http.HttpStatus.*;
@@ -68,17 +70,21 @@ public class ProductController {
 
     @Operation(summary = "Update a product", description = "Update a product.")
     @PatchMapping("/{id}")
-    public ResponseEntity<?> updateProduct(@PathVariable Long id, @Valid @RequestBody Product product) {
-        log.debug("REST request to update a new product {}", product);
-        return ResponseEntity.ok().body(
-            Response.builder()
+    public ResponseEntity<Response> updateProduct(
+        @PathVariable Long id,
+        @Validated(UpdateValidationGroup.class) @RequestBody Product product) {
+        log.debug("REST request to update product with id: {}", id);
+
+        Product updatedProduct = productService.editProduct(id, product);
+
+        return ResponseEntity.ok()
+            .body(Response.builder()
                 .timeStamp(now())
-                .data(productService.editProduct(id, product))
-                .message("Product updated successfully.")
+                .data(Map.of("product", updatedProduct))
+                .message("Product updated successfully")
                 .status(OK)
                 .statusCode(OK.value())
-                .build()
-        );
+                .build());
     }
 
     @Operation(summary = "Return all products", description = "Return all products")

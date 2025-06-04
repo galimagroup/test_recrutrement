@@ -26,7 +26,7 @@ public class Product {
     @Column(nullable = false)
     private Long id;
 
-    @NotBlank
+    @NotBlank(groups = CreateValidationGroup.class)
     @Column(unique = true)
     private String code;
     @NotBlank

@@ -68,11 +68,44 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product editProduct(Long id, Product product) {
+    public Product editProduct(Long id, Product productDetails) {
         log.info("Request to update a product with Id: {}", id);
-        productRepository.findById(id)
-            .orElseThrow(() -> new RuntimeException("Product not found"));
-        return productRepository.save(product);
+
+        Product existingProduct = productRepository.findById(id)
+            .orElseThrow(() -> new RuntimeException("Product not found with id: " + id));
+
+        if (productDetails.getName() != null) {
+            existingProduct.setName(productDetails.getName());
+        }
+        if (productDetails.getDescription() != null) {
+            existingProduct.setDescription(productDetails.getDescription());
+        }
+        if (productDetails.getImage() != null) {
+            existingProduct.setImage(productDetails.getImage());
+        }
+        if (productDetails.getCategory() != null) {
+            existingProduct.setCategory(productDetails.getCategory());
+        }
+        if (productDetails.getPrice() != null) {
+            existingProduct.setPrice(productDetails.getPrice());
+        }
+        if (productDetails.getQuantity() != null) {
+            existingProduct.setQuantity(productDetails.getQuantity());
+        }
+        if (productDetails.getInternalReference() != null) {
+            existingProduct.setInternalReference(productDetails.getInternalReference());
+        }
+        if (productDetails.getShellId() != null) {
+            existingProduct.setShellId(productDetails.getShellId());
+        }
+        if (productDetails.getInventoryStatus() != null) {
+            existingProduct.setInventoryStatus(productDetails.getInventoryStatus());
+        }
+        if (productDetails.getRating() != null) {
+            existingProduct.setRating(productDetails.getRating());
+        }
+
+        return productRepository.save(existingProduct);
     }
 
     @Override
