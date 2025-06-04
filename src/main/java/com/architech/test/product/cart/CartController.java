@@ -4,6 +4,7 @@ import com.architech.test.product.dto.AddToCartRequest;
 import com.architech.test.product.dto.CartSummaryDto;
 import com.architech.test.product.dto.UpdateCartItemRequest;
 import com.architech.test.product.utils.Response;
+import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,9 +23,9 @@ public class CartController {
 
     private static final Logger log = LoggerFactory.getLogger(CartController.class);
 
-    private final CartService cartService;
+    private final CartServiceImpl cartService;
 
-    public CartController(CartService cartService) {
+    public CartController(CartServiceImpl cartService) {
         this.cartService = cartService;
     }
 
@@ -33,6 +34,7 @@ public class CartController {
         return authentication.getName();
     }
 
+    @Operation(summary = "REST API to get a cart for a user", description = "Get a cart for a user")
     @GetMapping
     public ResponseEntity<?> getCart() {
         String userEmail = getCurrentUserEmail();
@@ -51,6 +53,7 @@ public class CartController {
         );
     }
 
+    @Operation(summary = "REST API to get cart summary for user", description = "Get cart summary for user")
     @GetMapping("/summary")
     public ResponseEntity<?> getCartSummary() {
         String userEmail = getCurrentUserEmail();
@@ -69,10 +72,11 @@ public class CartController {
         );
     }
 
+    @Operation(summary = "REST API to add product in cart for a user", description = "Add product in cart for a user")
     @PostMapping("/items")
     public ResponseEntity<?> addToCart(@Valid @RequestBody AddToCartRequest request) {
         String userEmail = getCurrentUserEmail();
-        log.debug("REST request to add product {} to cart for user {}", request.getProductId(), userEmail);
+        log.debug("REST request to add product {} in cart for user {}", request.getProductId(), userEmail);
 
         Cart cart = cartService.addToCart(userEmail, request);
 
@@ -87,6 +91,7 @@ public class CartController {
         );
     }
 
+    @Operation(summary = "REST API to update product quantity in cart", description = "Update product quantity in cart")
     @PutMapping("/items/{productId}")
     public ResponseEntity<?> updateCartItem(@PathVariable Long productId,
                                             @Valid @RequestBody UpdateCartItemRequest request) {
@@ -107,6 +112,7 @@ public class CartController {
         );
     }
 
+    @Operation(summary = "REST API to remove product from cart", description = "Remove product from cart")
     @DeleteMapping("/items/{productId}")
     public ResponseEntity<?> removeFromCart(@PathVariable Long productId) {
         String userEmail = getCurrentUserEmail();
@@ -125,6 +131,7 @@ public class CartController {
         );
     }
 
+    @Operation(summary = "REST API to clear cart for user", description = "Clear cart for user")
     @DeleteMapping
     public ResponseEntity<?> clearCart() {
         String userEmail = getCurrentUserEmail();

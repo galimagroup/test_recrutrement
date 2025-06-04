@@ -37,16 +37,15 @@ public class Product {
     @Min(0)
     private BigDecimal price;
     @Min(0)
-    private int quantity;
+    private Integer quantity;
     private String internalReference;
     private Long shellId;
     @Enumerated(EnumType.STRING)
     private InventoryStatus inventoryStatus;
-    private int rating;
+    private Integer rating;
     @CreationTimestamp
     private LocalDateTime createdAt;
     @UpdateTimestamp
     private LocalDateTime updatedAt;
-
 
 }

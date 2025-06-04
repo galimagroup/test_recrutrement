@@ -18,35 +18,35 @@ public class AdminAccessInterceptor implements HandlerInterceptor {
     private static final String ADMIN_EMAIL = "admin@admin.com";
     private static final String USER_EMAIL_HEADER = "X-User-Email";
 
-    private static final List<String> RESTRICTED_METHODS = Arrays.asList("POST", "PUT", "PATCH", "DELETE");
+    private static final List<String> RESTRICTED_METHODS = Arrays.asList("POST", "PUT", "PATCH", "DELETE", "GET");
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         String method = request.getMethod();
         String requestURI = request.getRequestURI();
 
-        if (requestURI.startsWith("/api/product") && RESTRICTED_METHODS.contains(method)) {
+        if (requestURI.startsWith("/api/products") && RESTRICTED_METHODS.contains(method)) {
             String userEmail = request.getHeader(USER_EMAIL_HEADER);
 
-            log.debug("Vérification d'accès admin pour {} {} avec email: {}", method, requestURI, userEmail);
+            log.debug("Checking admin access for {} {} with email: {}", method, requestURI, userEmail);
 
             if (userEmail == null || userEmail.trim().isEmpty()) {
-                log.warn("Tentative d'accès sans email pour {} {}", method, requestURI);
+                log.warn("Access attempt without email for {} {}", method, requestURI);
                 response.setStatus(HttpStatus.UNAUTHORIZED.value());
                 response.setContentType("application/json");
-                response.getWriter().write("{\"error\":\"Email requis dans le header X-User-Email\"}");
+                response.getWriter().write("{\"error\":\"Email required in X-User-Email header\"}");
                 return false;
             }
 
             if (!ADMIN_EMAIL.equals(userEmail.trim())) {
-                log.warn("Tentative d'accès non autorisé avec email: {} pour {} {}", userEmail, method, requestURI);
+                log.warn("Unauthorized access attempt with email: {} for {} {}", userEmail, method, requestURI);
                 response.setStatus(HttpStatus.FORBIDDEN.value());
                 response.setContentType("application/json");
-                response.getWriter().write("{\"error\":\"Accès refusé. Seul l'administrateur peut effectuer cette action.\"}");
+                response.getWriter().write("{\"error\":\"Access denied. Only administrator can perform this action.\"}");
                 return false;
             }
 
-            log.info("Accès admin autorisé pour {} {}", method, requestURI);
+            log.info("Admin access granted for {} {}", method, requestURI);
         }
 
         return true;

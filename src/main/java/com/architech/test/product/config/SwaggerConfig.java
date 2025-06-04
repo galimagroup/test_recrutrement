@@ -16,7 +16,7 @@ public class SwaggerConfig {
     public OpenAPI customOpenAPI() {
         return new OpenAPI()
             .info(new Info()
-                .title("Invoice API")
+                .title("Products REST API")
                 .version("1.0")
                 .description("API for managing Product")
                 .contact(new Contact()

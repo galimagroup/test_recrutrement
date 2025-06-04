@@ -1,6 +1,5 @@
 package com.architech.test.product.wishlist;
 
-import com.architech.test.product.cart.CartController;
 import com.architech.test.product.dto.*;
 import com.architech.test.product.products.Product;
 import org.slf4j.Logger;
@@ -18,9 +17,9 @@ public class WishlistController {
     private static final Logger log = LoggerFactory.getLogger(WishlistController.class);
 
 
-    private final WishlistService wishlistService;
+    private final WishlistServiceImpl wishlistService;
 
-    public WishlistController(WishlistService wishlistService) {
+    public WishlistController(WishlistServiceImpl wishlistService) {
         this.wishlistService = wishlistService;
     }
 
