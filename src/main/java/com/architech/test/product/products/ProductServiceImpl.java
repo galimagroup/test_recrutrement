@@ -1,5 +1,6 @@
 package com.architech.test.product.products;
 
+import com.architech.test.product.exception.EntityNotFoundException;
 import com.architech.test.product.exception.ResourceNotFoundException;
 import com.architech.test.product.exception.StorageException;
 import jakarta.validation.ValidationException;
@@ -13,15 +14,18 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.nio.file.attribute.PosixFilePermission;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 @Service
@@ -116,38 +120,57 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product uploadImage(Long productId, MultipartFile file) {
-        log.debug("Request Uploading image for user {}", productId);
+        log.debug("Request to upload image for product {}", productId);
+
         Product product = productRepository.findById(productId)
-            .orElseThrow(() -> new RuntimeException("Product not found with id " + productId));
+            .orElseThrow(() -> new EntityNotFoundException("Product not found with id " + productId));
 
         validateFile(file);
 
         try {
-            // Create upload directory if it doesn't exist
             Path uploadPath = Paths.get(UPLOAD_DIR).toAbsolutePath().normalize();
             Files.createDirectories(uploadPath);
+            Files.setPosixFilePermissions(uploadPath,
+                Set.of(PosixFilePermission.OWNER_READ,
+                    PosixFilePermission.OWNER_WRITE,
+                    PosixFilePermission.OWNER_EXECUTE));
 
-            // Generate secure filename with original extension
-            String originalFilename = file.getOriginalFilename();
-            String extension = originalFilename != null ?
-                originalFilename.substring(originalFilename.lastIndexOf(".")) : "";
-            String filename = UUID.randomUUID().toString() + extension;
+            String filename = generateSecureFilename(file.getOriginalFilename());
 
-            // Resolve file path and ensure it's within upload directory
-            Path targetPath = uploadPath.resolve(filename).normalize();
-            if (!targetPath.getParent().equals(uploadPath)) {
-                throw new SecurityException("Cannot store file outside upload directory");
-            }
+            Path targetPath = storeFile(file, uploadPath, filename);
 
-            // Copy file with REPLACE_EXISTING to prevent race conditions
-            Files.copy(file.getInputStream(), targetPath, StandardCopyOption.REPLACE_EXISTING);
-
-            // Store relative path in database
             product.setImage(filename);
             return productRepository.save(product);
+
         } catch (IOException e) {
-            throw new RuntimeException("Failed to store image", e);
+            throw new StorageException("Failed to store image for product " + productId, e);
         }
+    }
+
+    private String generateSecureFilename(String originalFilename) {
+        String extension = "";
+        if (originalFilename != null) {
+            extension = originalFilename.substring(originalFilename.lastIndexOf("."));
+        }
+        return UUID.randomUUID() + extension;
+    }
+
+    private Path storeFile(MultipartFile file, Path uploadPath, String filename) throws IOException {
+        Path targetPath = uploadPath.resolve(filename).normalize();
+
+        if (!targetPath.getParent().equals(uploadPath)) {
+            throw new SecurityException("Cannot store file outside upload directory");
+        }
+
+        try (InputStream inputStream = file.getInputStream()) {
+            Files.copy(inputStream, targetPath, StandardCopyOption.REPLACE_EXISTING);
+        }
+
+        Files.setPosixFilePermissions(targetPath,
+            Set.of(PosixFilePermission.OWNER_READ,
+                PosixFilePermission.OWNER_WRITE));
+
+        return targetPath;
     }
 
     private void validateFile(MultipartFile file) {
@@ -161,7 +184,6 @@ public class ProductServiceImpl implements ProductService {
         }
 
         try {
-            // Detect actual content type
             String detectedType = tika.detect(file.getInputStream());
             if (!ALLOWED_CONTENT_TYPES.contains(detectedType)) {
                 throw new ValidationException("File type not allowed");
@@ -185,7 +207,6 @@ public class ProductServiceImpl implements ProductService {
             Path uploadPath = Paths.get(UPLOAD_DIR).toAbsolutePath().normalize();
             Path filePath = uploadPath.resolve(product.getImage()).normalize();
 
-            // Ensure the resolved path is within upload directory
             if (!filePath.getParent().equals(uploadPath)) {
                 throw new SecurityException("Cannot access file outside upload directory");
             }

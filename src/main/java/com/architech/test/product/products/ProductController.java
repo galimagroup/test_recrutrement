@@ -41,7 +41,7 @@ public class ProductController {
     @Operation(summary = "Create a new product.", description = "Create a new product.")
     @PostMapping("/")
     public ResponseEntity<?> addProduct(@Valid @RequestBody Product product) {
-        log.debug("REST request to add a new product {}", product);
+        log.info("REST request to add a new product {}", product);
         return ResponseEntity.status(CREATED).body(
             Response.builder()
                 .timeStamp(now())
@@ -56,7 +56,7 @@ public class ProductController {
     @Operation(summary = "Get a product by id.", description = "Get a product by id.")
     @GetMapping("/{id}")
     public ResponseEntity<?> getProductById(@PathVariable @Min(1) Long id) {
-        log.debug("REST request to find a product by id {}", id);
+        log.info("REST request to find a product by id {}", id);
         return ResponseEntity.ok().body(
             Response.builder()
                 .timeStamp(now())
@@ -73,7 +73,7 @@ public class ProductController {
     public ResponseEntity<Response> updateProduct(
         @PathVariable Long id,
         @Validated(UpdateValidationGroup.class) @RequestBody Product product) {
-        log.debug("REST request to update product with id: {}", id);
+        log.info("REST request to update product with id: {}", id);
 
         Product updatedProduct = productService.editProduct(id, product);
 
@@ -90,7 +90,7 @@ public class ProductController {
     @Operation(summary = "Return all products", description = "Return all products")
     @GetMapping("/")
     public ResponseEntity<Response> getAllProducts() {
-        log.debug("REST request to get all products.");
+        log.info("REST request to get all products.");
         return ResponseEntity.ok().body(
             Response.builder()
                 .timeStamp(now())
@@ -117,22 +117,44 @@ public class ProductController {
         );
     }
 
-    @Operation(summary = "Upload an image's product.", description = "Upload an image's product.")
-    @PostMapping("/{productId}/upload-image")
-    public ResponseEntity<Product> uploadImage (@PathVariable Long productId, @RequestParam("file") MultipartFile file) {
-        log.debug("Uploading image  from :  {} to {}", productId, file);
+    @Operation(summary = "Upload product image ", description = "Upload product image")
+    @PostMapping(value = "/{id}/upload-image", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<Response> uploadImage(@PathVariable Long id, @RequestPart("file") MultipartFile file) {
+        log.info("Uploading image for product: {}", id);
+
         try {
-            Product product = productService.uploadImage(productId, file);
-            return ResponseEntity.ok(product);
-        } catch (RuntimeException e) {
-            return ResponseEntity.status(INTERNAL_SERVER_ERROR).body(null);
+            Product product = productService.uploadImage(id, file);
+            return ResponseEntity.ok()
+                .body(Response.builder()
+                    .timeStamp(now())
+                    .data(Map.of("product", product))
+                    .message("Image uploaded successfully")
+                    .status(OK)
+                    .statusCode(OK.value())
+                    .build());
+        } catch (ValidationException e) {
+            return ResponseEntity.badRequest()
+                .body(Response.builder()
+                    .timeStamp(now())
+                    .message(e.getMessage())
+                    .status(BAD_REQUEST)
+                    .statusCode(BAD_REQUEST.value())
+                    .build());
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError()
+                .body(Response.builder()
+                    .timeStamp(now())
+                    .message("Failed to upload image: " + e.getMessage())
+                    .status(INTERNAL_SERVER_ERROR)
+                    .statusCode(INTERNAL_SERVER_ERROR.value())
+                    .build());
         }
     }
 
     @Operation(summary = "Return an image's product.", description = "Return an image's product.")
     @GetMapping("/{productId}/image")
     public ResponseEntity<Resource> getImage(@PathVariable Long productId) {
-        log.debug("REST request to get image {}", productId);
+        log.info("REST request to get image {}", productId);
         try {
             Resource imageResource = productService.getImage(productId);
 
