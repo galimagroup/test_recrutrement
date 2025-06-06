@@ -1,0 +1,13 @@
+<h1>Panier</h1>
+
+<div *ngIf="cartItems().length === 0" class="empty-cart">Panier vide</div>
+
+<div *ngFor="let item of cartItems()" class="cart-item">
+    <div>{{ item.product.name }} ({{ item.quantity }})</div>
+    <div>{{ item.product.price }} €</div>
+    <button (click)="removeFromCart(item.product.id)">Supprimer</button>
+</div>
+
+<div class="total">
+    Total : {{ getTotal() }} €
+</div>

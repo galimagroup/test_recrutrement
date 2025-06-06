@@ -1,19 +1,22 @@
-import { enableProdMode, importProvidersFrom } from "@angular/core";
-
-import { registerLocaleData } from "@angular/common";
+import { enableProdMode, importProvidersFrom } from '@angular/core';
+import { registerLocaleData } from '@angular/common';
 import {
   provideHttpClient,
   withInterceptorsFromDi,
-} from "@angular/common/http";
-import localeFr from "@angular/common/locales/fr";
-import { BrowserModule, bootstrapApplication } from "@angular/platform-browser";
-import { provideAnimations } from "@angular/platform-browser/animations";
-import { provideRouter } from "@angular/router";
-import { APP_ROUTES } from "app/app.routes";
-import { ConfirmationService, MessageService } from "primeng/api";
-import { DialogService } from "primeng/dynamicdialog";
-import { AppComponent } from "./app/app.component";
-import { environment } from "./environments/environment";
+} from '@angular/common/http';
+import localeFr from '@angular/common/locales/fr';
+import { BrowserModule, bootstrapApplication } from '@angular/platform-browser';
+import { provideAnimations } from '@angular/platform-browser/animations';
+import { provideRouter } from '@angular/router';
+import { APP_ROUTES } from 'app/app.routes';
+import { ConfirmationService, MessageService } from 'primeng/api';
+import { DialogService } from 'primeng/dynamicdialog';
+import { AppComponent } from './app/app.component';
+import { environment } from './environments/environment';
+
+// ✅ Modules nécessaires
+import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 if (environment.production) {
   enableProdMode();
@@ -21,10 +24,13 @@ if (environment.production) {
 
 bootstrapApplication(AppComponent, {
   providers: [
-    importProvidersFrom(BrowserModule),
-    provideHttpClient(
-      withInterceptorsFromDi(),
+    importProvidersFrom(
+        BrowserModule,
+        CommonModule,
+        ReactiveFormsModule, // ✅ Ajouté pour les formulaires réactifs
+        FormsModule          // ✅ Ajouté pour les formulaires template-driven
     ),
+    provideHttpClient(withInterceptorsFromDi()),
     provideAnimations(),
     provideRouter(APP_ROUTES),
     ConfirmationService,
@@ -33,4 +39,4 @@ bootstrapApplication(AppComponent, {
   ],
 }).catch((err) => console.log(err));
 
-registerLocaleData(localeFr, "fr-FR");
+registerLocaleData(localeFr, 'fr-FR');

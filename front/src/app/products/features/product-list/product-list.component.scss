@@ -2,4 +2,11 @@
     display: block;
     height: 100%;
     overflow: auto;
+    .ml-auto {
+        margin-left: auto;
+    }
+    ::ng-deep .p-dataview .p-paginator {
+        justify-content: center;
+        display: flex;
+    }
 }
