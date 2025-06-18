@@ -14,7 +14,6 @@ public class ApiErrorResponse {
     private String message;
     private String path;
 
-    // Constructors
     public ApiErrorResponse() {
         this.timestamp = LocalDateTime.now();
     }

@@ -62,7 +62,8 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Product findProductById(Long id) {
         log.info("Request to find a product by id {}", id);
-        return productRepository.findById(id).get();
+        return productRepository.findById(id)
+            .orElseThrow(()-> new RuntimeException("Product not found with ID: " + id));
     }
 
     @Override

@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class UpdateCartItemRequest {
 
-    @NotNull(message = "La quantité est obligatoire")
-    @Positive(message = "La quantité doit être positive")
+    @NotNull(message = "The quantity is required")
+    @Positive(message = "The quantity must be positive")
     private Integer quantity;
 }

@@ -6,6 +6,7 @@ import com.architech.test.product.dto.UpdateCartItemRequest;
 
 public interface CartService {
 
+    Cart getCartById(Long cartId);
     Cart getOrCreateCart(String userEmail);
     Cart addToCart(String userEmail, AddToCartRequest request);
     Cart updateCartItem(String userEmail, Long productId, UpdateCartItemRequest request);
