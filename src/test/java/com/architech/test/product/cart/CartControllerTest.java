@@ -34,7 +34,7 @@ class CartControllerTest {
     @InjectMocks
     private CartController cartController;
 
-    private final String TEST_USER_EMAIL = "test@example.com";
+    private final String TEST_USER_EMAIL = "test@admin.com";
 
     @BeforeEach
     void setUp() {
